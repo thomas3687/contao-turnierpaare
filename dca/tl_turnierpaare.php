@@ -164,7 +164,7 @@ $GLOBALS['TL_DCA']['tl_turnierpaare'] = array
 			Entsprechend muss in den DCA's im Bereich config der Kindertabellen der Eintrag 'ptable' = 'tl_turnierpaare' gesetzt werden
 			
 		*/
-		'ctable'			=> array('tl_turnierpaarbilder', 'tl_turnierergebnisse', 'tl_turniermeldungen'),
+		'ctable'			=> array('tl_turnierpaarbilder', 'tl_turnierergebnisse'),
 		'onload_callback' => array
 		(
 			array('tl_turnierpaare', 'loadPaarReference')
@@ -283,7 +283,7 @@ $GLOBALS['TL_DCA']['tl_turnierpaare'] = array
 	*/
 	'palettes' => array
 	(
-		'default'       => '{startbuchnummer_legend},startbuchnummer,aktiv;{password_legend:hide}, password_reset;{paar_legend},herr_id,dame_id;{startklasse_legend}, classSTD, classLAT, classSTD2, classLAT2;{info_legend}, beginn, ende, www;{bilder_legend:hide}'
+		'default'       => '{paar_legend},aktiv,herr_id,dame_id;{startklasse_legend}, classSTD, classLAT, classSTD2, classLAT2;{info_legend}, beginn, ende, www;{bilder_legend:hide}'
 ),
 
 
@@ -304,36 +304,6 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
 		'tstamp' => array
 		(
 			'sql' => "int(10) unsigned NOT NULL default '0'"
-		),
-		'startbuchnummer'  => array
-		(
-			//Platzhalter für das Backend
-			'label'     => &$GLOBALS['TL_LANG']['tl_turnierpaare']['startbuchnummer'],
-			//Wie soll die eingabe erfolgen, in diesem Fall als Textfeld
-			'inputType' => 'text',
-			//Soll der Zugriff auf dieses Feld durch andere Benutzern im Backend geregelt werden können
-			'exclude'   => false,
-			//hier wird bekannt gemacht, dass nach diesem Feld sortiert werden kann, es erscheint automatisch im Panellayout im bereich sortierung
-			'sorting'   => true,
-			'flag'      => 1,
-			//hier wird bekannt gemacht, dass nach diesem Feld gesucht werden kann, es erscheint automatisch im Panellayout im bereich suchen
-            'search'    => true,
-			//Gültigkeitscheck
-			'eval'      => array(
-			//Pflichtfeld?
-				'mandatory'   => true,
-				//einzigartig in der Tabelle?
-                 'unique'         => false,
-				 //maximale Länge
-                 'maxlength'   => 255,
-				 //css class für das Backend 
-				'tl_class'        => 'w50',
- 
-			),
-			//Callback um die Namen der Paare für die Suche zu hinterlegen
-			'save_callback'  => array(array('tl_turnierpaare','name_save_callback')),
-			//SQL definition des Feldes
-			'sql'       => "varchar(255) NOT NULL default ''"
 		),
 		'herr_id'  => array
 		(
@@ -571,33 +541,6 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
  
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
-		),
-		'password'  => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_turnierpaare']['password'],
-			'inputType' => 'text',
-			'exclude'   => true,
-			'sorting'   => false,
-			'flag'      => 1,
-			'save_callback'  => array(array('tl_turnierpaare','password_save_callback')),
-                        'search'    => false,
-			'eval'      => array(
-				'mandatory'   => false,
-                                'unique'         => false,
-                                'maxlength'   => 255,
-				'tl_class'        => 'w50',
- 
-			),
-			'sql'       => "varchar(255) NOT NULL"
-		),
-		'password_reset'  => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_turnierpaare']['password_reset'],
-			'inputType' => 'checkbox',
-			'exclude'   => true,
-			'save_callback'  => array(array('tl_turnierpaare','password_reset_callback')),
-                        'search'    => false,
-			'sql'       => "int(10) unsigned NOT NULL default '0'"
 		)
 		
        )

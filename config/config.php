@@ -15,7 +15,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array(
       'turnierpaare' => array 
       ( 
 	  //hier werden die Tabellen angegeben auf die das Modul zugreifen darf
-        'tables' => array('tl_turnierpaare', 'tl_turnierpaarbilder', 'tl_turnierergebnisse', 'tl_turniermeldungen', 'tl_turnierdatenbank'),
+        'tables' => array('tl_turnierpaare', 'tl_turnierpaarbilder', 'tl_turnierergebnisse'),
 		//icon zum Modul
 		'icon'   => 'system/modules/turnierpaare/assets/images/turnierpaare.png' 
       ),
@@ -24,13 +24,7 @@ array_insert($GLOBALS['BE_MOD'], 0, array(
       ( 
         'tables' => array('tl_turnierergebnisse'),
 		'icon'   => 'system/modules/turnierpaare/assets/images/ergebnisse.png' 
-      ),
-	  //Modul Turniermeldungen
-	  'turniermeldungen' => array 
-      ( 
-        'tables' => array('tl_turniermeldungen'),
-		'icon'   => 'system/modules/turnierpaare/assets/images/turniermeldungen.png' 
-      )  
+      )
     ) 
   ) 
 );
@@ -47,9 +41,7 @@ $GLOBALS['FE_MOD']['turnierpaare'] = array
 	//Platzhalter-Name des Templates => Klasse die sich um die implementierung des Templates kümmert
 	'turnierpaare_list'     => 'ModuleTurnierpaareList',
 	'turnierpaare_detail'	=> 'ModuleTurnierpaareDetail',
-	'turnierpaare_ergebnisse_list' => 'ModuleTurnierpaareErgebnisseList',
-	'turnierpaare_turniermeldungen'=> 'ModuleTurnierpaareMeldungen',
-	'turnierpaare_turniermeldungen_suche'=> 'ModuleTurnierpaareMeldungenSuche'
+	'turnierpaare_ergebnisse_list' => 'ModuleTurnierpaareErgebnisseList'
 );
 
 ?>

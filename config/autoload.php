@@ -19,8 +19,6 @@ ClassLoader::addClasses(array
 	// Modules
 	'ModuleTurnierpaareList'   => 'system/modules/turnierpaare/modules/ModuleTurnierpaareList.php',
 	'ModuleTurnierpaareDetail' => 'system/modules/turnierpaare/modules/ModuleTurnierpaareDetail.php',
-	'ModuleTurnierpaareMeldungen' => 'system/modules/turnierpaare/modules/ModuleTurnierpaareMeldungen.php',
-	'ModuleTurnierpaareMeldungenSuche' => 'system/modules/turnierpaare/modules/ModuleTurnierpaareMeldungenSuche.php',
 ));
 
 
@@ -31,6 +29,4 @@ TemplateLoader::addFiles(array
 (
 	'mod_turnierpaare_detail' => 'system/modules/turnierpaare/templates',
 	'mod_turnierpaare_list'   => 'system/modules/turnierpaare/templates',
-	'mod_turnierpaare_meldungen'   => 'system/modules/turnierpaare/templates',
-	'mod_turnierpaare_meldungen_suche'   => 'system/modules/turnierpaare/templates',
 ));
