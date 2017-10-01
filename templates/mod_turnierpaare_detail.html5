@@ -1,0 +1,139 @@
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+<?php
+
+$turnierpaar = $this->turnierpaare[0];
+
+echo "<h1>".$turnierpaar['Hvorname']." ".$turnierpaar['Hnachname']." und ".$turnierpaar['Dvorname']." ".$turnierpaar['Dnachname']."</h1>";
+
+$klasse="";
+	if($turnierpaar['classSTD'] != ""){ $klasse = $turnierpaar['classSTD']." Standard";
+	
+	if($turnierpaar['classLAT'] != ""){ $klasse=$klasse.", ".$turnierpaar['classLAT']." Latein";}
+	
+	}else{
+		 $klasse= $turnierpaar['classLAT']." Latein";
+		
+		}
+	
+	echo "<h4 class='orange'>".$klasse."</h4>";
+
+
+//Bilder
+
+if(count($this->bilder)>0){	
+	
+	//erstellung der Bilderreihen
+
+		$temp = count($this->bilder);
+	
+		//wieviele 	reihen gibt es (mindestens eine)
+		$row = 1;
+	while($temp > 6){
+		$temp = $temp-6;
+		$row++;
+		}
+		
+		
+		//wieviele Bilder sind in der letzen Reihe
+	$lastRow = $temp;	
+	switch($lastRow){
+		
+		case 0: $padding =  0; break;
+		case 1: $padding =  268; break;
+		case 2: $padding =  216; break;
+		case 3: $padding =  164; break;
+		case 4: $padding =  112; break;
+		case 5: $padding =  60; break;
+		case 6: $padding =  8; break;
+		
+		}
+}
+
+
+if(count($this->bilder)>0){
+		
+		?>
+        <div align="center" style="font-weight:bold">Bildergalerie</div>
+        <div style="background-color:#ff6603; height:1px; margin-top:5px; margin-bottom:5px;"></div>
+        <div style="overflow:auto;">
+        <?
+		
+		
+		
+		$aktRow = 1;
+		
+		
+		while($aktRow <= $row){ $i = 0;
+		
+		 if($aktRow!= $row){
+		?>
+			<div align="center" style="padding-left:8px;">
+					<?
+		 }else{
+			 ?>
+             <div align="center" style="padding-left:<? echo $padding;?>px;">
+			 <?
+			 }
+			
+			
+            		while($i<6 && ((($aktRow-1)*6)+$i)< count($this->bilder) ){
+						$resultBilderLine = $this->bilder[(($aktRow-1)*6)+$i];
+						?>
+		
+			
+		
+			
+							<a href="<? echo $resultBilderLine['path']; ?>" data-lightbox="multi" >
+      					  <div class="paarbilder" style="background-image:url(<? echo $this->getImage($resultBilderLine['path'], 150, 150, 'proportional'); ?>) ">
+        	
+							</div>
+							 </a>
+            
+            
+							<?
+								$i++;
+								}
+         				   ?>
+            
+            </div>
+			
+			
+			
+			<?
+			$aktRow++;
+			}
+			
+			//letze Reihe
+			
+			?>
+            </div>
+        <p></p>
+        <?	
+		}
+//Ende Bilder
+?>
+
+
+
+
+<div align="center" style="font-weight:bold">Turnier-Ergebnisse</div>
+<table class="tabelle_content" style="width:100%;">
+<tr>
+<td><h3>Datum</h3></td><td><h3>Ort</h3></td><td><h3>Klasse</h3></td><td><h3>Ergebnis</h3></td> 
+</tr>
+<?php
+$i=0;
+ foreach ($this->ergebnisse as $ergebnis): ?>
+ <tr  <?php if($i%2==0){ echo 'class="gray_background"';} ?>  >
+<td><? echo date('d', $ergebnis['datum']).".".date('m', $ergebnis['datum']).".".date('Y', $ergebnis['datum']); ?></td><td><?php echo $ergebnis['ort']?></td><td><?php echo $ergebnis['klasse']?></td><td><?php echo $ergebnis['platz']."/".$ergebnis['paare'];
+if(strlen($ergebnis['kommentar'])>0){ echo " (".$ergebnis['kommentar'].")";  }
+
+?></td> 
+</tr>
+ 
+<?php
+$i++;
+ endforeach; ?>
+</table>
+</div>

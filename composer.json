@@ -1,0 +1,25 @@
+{
+    "name": "thomas3687/contao-turnierpaare",
+    "description":"Turnierpaarverwaltung für Contao",
+    "keywords":["contao", "turnierpaar", "background"],
+    "type": "contao-module",
+    "license":"LGPL-3.0+",
+    "authors":[
+        {
+            "name":"Thomas Bilich"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "contao/core-bundle": ">=4.3",
+        "contao/core-bundle": "^3.5.9 | ^4.2.0",
+        "contao-community-alliance/composer-plugin": "~2.4 | ~3.0"
+    },
+    "extra": {
+        "contao": {
+            "sources": {
+                "": "system/modules/turnierpaare"
+            }
+        }
+    }
+}

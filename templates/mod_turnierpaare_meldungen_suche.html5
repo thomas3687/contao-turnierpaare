@@ -1,0 +1,226 @@
+<?php
+$paar = $this->paare[0];
+?>
+
+
+<script language="javascript" src="system/modules/turnierpaare/calendar/calendar.js"></script>
+<script type="text/javascript">
+var temp_ort;
+
+function changeKategorie(kategorie){
+	
+	switch (kategorie){
+		
+		case "Offen": 
+		document.getElementById("place").disabled = false;
+		document.getElementById("monat").disabled = true;
+		document.getElementById("jahr").disabled = true;
+		document.getElementById("radio").disabled = false;
+		document.getElementById("radio2").disabled = false;
+		document.getElementById("radio").checked = true;
+		searchFor(document.getElementById("place").value); 
+		 break;
+		
+		case "Grenzverkehr":
+		document.getElementById("place").disabled = true;
+		document.getElementById("monat").disabled = false;
+		document.getElementById("jahr").disabled = false;
+		document.getElementById("radio").disabled = true; 
+		document.getElementById("radio2").disabled = true;
+		document.getElementById("radio2").checked = true;
+		searchFor(document.getElementById("place").value);
+		 break;
+		
+		case "International": 
+		document.getElementById("place").disabled = true;
+		document.getElementById("monat").disabled = false;
+		document.getElementById("jahr").disabled = false; 
+		document.getElementById("radio").disabled = true;
+		document.getElementById("radio2").disabled = true;
+		document.getElementById("radio2").checked = true;
+		searchFor(document.getElementById("place").value);
+		break;
+		
+		}
+	}
+
+function changeActivation(){
+	
+	
+	if(document.getElementById("radio").checked){
+		
+		document.getElementById("place").disabled = false;
+		document.getElementById("place").value = temp_ort;
+		document.getElementById("monat").disabled = true;
+		document.getElementById("jahr").disabled = true;
+		searchFor(document.getElementById("place").value);
+		}else{
+		document.getElementById("place").disabled = true;
+		temp_ort = document.getElementById("place").value;
+		document.getElementById("place").value ="";
+		document.getElementById("monat").disabled = false;
+		document.getElementById("jahr").disabled = false;
+		searchFor(document.getElementById("place").value);
+			}
+	
+	}
+
+		function searchFor(ort){
+			
+			document.getElementById("suchergebnis").innerHTML ='<div style="text-align:center;"><p>Es wird nach Turnieren gesucht</p> <img src="system/modules/turnierpaare/assets/images/ajax-loader.gif" width="32" height="32" /></div>';
+			
+			var xmlHttp = null;
+			// Mozilla, Opera, Safari sowie Internet Explorer 7
+			if (typeof XMLHttpRequest != 'undefined') {
+				xmlHttp = new XMLHttpRequest();
+			}
+			if (!xmlHttp) {
+				// Internet Explorer 6 und älter
+				try {
+					xmlHttp  = new ActiveXObject("Msxml2.XMLHTTP");
+				} catch(e) {
+					try {
+						xmlHttp  = new ActiveXObject("Microsoft.XMLHTTP");
+					} catch(e) {
+						xmlHttp  = null;
+					}
+				}
+			}
+			// Wenn das Objekt erfolgreich erzeugt wurde			
+			if (xmlHttp) {
+				var url = "SimpleAjax.php";
+				var params;
+				
+				if(document.getElementById("radio").checked){
+				params = "type=turniersuche&ort="+ort+"&kategorie="+document.getElementById("kategorie").value+"&classLAT=<?php echo $paar['classLAT'];?>&classSTD=<?php echo $paar['classSTD'];?>&classLAT2=<?php echo $paar['classLAT2'];?>&classSTD2=<?php echo $paar['classSTD2'];?>&coupleID=<?php echo $paar['couple_id'];?>";
+				}else{
+				params = "type=turniersuche&monat="+document.getElementById("monat").value+"&jahr="+document.getElementById("jahr").value+"&kategorie="+document.getElementById("kategorie").value+"&classLAT=<?php echo $paar['classLAT'];?>&classSTD=<?php echo $paar['classSTD'];?>&classLAT2=<?php echo $paar['classLAT2'];?>&classSTD2=<?php echo $paar['classSTD2'];?>&coupleID=<?php echo $paar['couple_id'];?>";	
+	
+					}
+				
+				
+				
+				xmlHttp.open("POST", url, true);
+				
+				//Headerinformationen für den POST Request
+				xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				//xmlHttp.setRequestHeader("Content-length", params.length);
+				//xmlHttp.setRequestHeader("Connection", "close");					
+			
+				xmlHttp.onreadystatechange = function () {
+					if (xmlHttp.readyState == 4) {
+						// Zurückgeliefertes Ergebnis wird in den DIV "ergebnis" geschrieben
+document.getElementById("suchergebnis").innerHTML = xmlHttp.responseText;
+					}
+				};				
+				xmlHttp.send(params);
+			}			
+		}
+
+	
+	</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+// jQuery
+(function($)
+	{
+	$(document).ready(function()
+		{
+		$("#knopf").click(function()
+			{
+				alert("test");
+			$.ajax({
+				type: "POST",
+				url:  "SimpleAjax.php",
+				data: { type: "ajaxsimple" },
+				success: function(result)
+					{
+					tags = $.parseJSON(result);
+					if (tags['code']=="0")   // nur als Beispiel
+						{
+						// benötigte Aktionen
+						alert(tags["msg"]);
+						}
+					}
+				});
+			});
+		});
+	})(jQuery);
+/* ]]> */
+</script>
+
+
+
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<?php if ($this->headline): ?>
+ 
+<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+<?php endif; ?>
+
+
+
+<p>
+Suche nach Club, Ort oder nach einem Zeitraum, um dein Turnier zu finden:<br><span style="font-size:10px;">(Bei Problemen, Fragen oder Änderungswünschen: <a class ="smallLink" href="mailto:webmaster@astoria-karlsruhe.de">webmaster@astoria-karlsruhe.de</a>)</span>
+</p>
+
+<table width="600" border="0" cellspacing="0" cellpadding="10">
+  <tr>
+    <td width="147">Turnierkategorie:</td>
+    <td width="453"><select name="kategorie" id="kategorie" onchange="changeKategorie(this.value);" >
+      <option value="Offen" selected="selected">National</option>
+      <option value="Grenzverkehr" >Grenzverkehr*</option>
+      <option value="International" >International (WDSF Turniere)</option>
+      </select></br>
+      <span style="font-size:9px;">*(Schweiz, Österreich, Slowakei, Dänemark, Belgien, Niederlande, Luxemburg, Tschechien)</span>
+      </td>
+  </tr>
+  <tr>
+    <td> <input name="radio" type="radio" id="radio" value="radio" checked="checked" onchange="changeActivation();" />
+      Ort / Club</br>(z.B. Karlsruhe):</td>
+    <td>
+ <input name="place" type="text" id="place" onkeyup="searchFor(this.value);" value="<?php print($place);?>"/>
+  <input type="button" id="knopf" /> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <input type="radio" name="radio" id="radio2" value="radio" onchange="changeActivation();" />
+      Zeitraum:</td>
+    <td>
+     <select name="monat" disabled="disabled" id="monat" onchange="searchFor();" >
+      <option value="1" <?php if (date("n",time())=="1"){ echo "selected";}?>>Januar</option>
+      <option value="2" <?php if (date("n",time())=="2"){ echo "selected";}?>>Februar</option>
+      <option value="3" <?php if (date("n",time())=="3"){ echo "selected";}?>>März</option>
+      <option value="4" <?php if (date("n",time())=="4"){ echo "selected";}?>>April</option>
+      <option value="5" <?php if (date("n",time())=="5"){ echo "selected";}?>>Mai</option>
+      <option value="6" <?php if (date("n",time())=="6"){ echo "selected";}?>>Juni</option>
+      <option value="7" <?php if (date("n",time())=="7"){ echo "selected";}?>>Juli</option>
+      <option value="8" <?php if (date("n",time())=="8"){ echo "selected";}?>>August</option>
+      <option value="9" <?php if (date("n",time())=="9"){ echo "selected";}?>>September</option>
+      <option value="10" <?php if (date("n",time())=="10"){ echo "selected";}?>>Oktober</option>
+      <option value="11" <?php if (date("n",time())=="11"){ echo "selected";}?>>November</option>
+      <option value="12" <?php if (date("n",time())=="12"){ echo "selected";}?>>Dezember</option>
+    </select>
+    <select name = "jahr" disabled="disabled" id="jahr" onchange="searchFor();">
+     <option value="<?php echo date("Y",time());?>" selected><?php echo date("Y",time());?></option>
+     <option value="<?php echo date("Y",time()+31536000);?>"><?php echo date("Y",time()+31536000);?></option>
+    </select>
+    
+   </td>
+  </tr>
+  </table>
+ 
+<div id="suchergebnis" style="padding-top:15px;padding-bottom:15px;">
+    <?php if($paar['classLAT'] == "" && $paar['classSTD'] == "" && $paar['classLAT2'] == "" && $paar['classSTD2'] == ""){
+	?>
+    
+    <span class="red">Sie haben noch keine Startklasse hinterlegt. Bitte wählen Sie mindestens eine Startklasse in den "Einstellungen" im Hauptmenu aus.</span>
+
+	<?
+	}
+?>
+</div>
+
+
+
+</div>

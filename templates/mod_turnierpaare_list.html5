@@ -1,0 +1,52 @@
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<?php if ($this->headline): ?>
+ 
+<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+<?php endif; ?>
+ <table style="width:100%;" class="tabelle_content">
+ <tr>
+<td><h3>Paar</h3></td>
+<td><h3>Klasse</h3></td>
+<?php if ($this->tl_turnierpaare_selectCouples =="E") {?>
+<td><h3>Zeit</h3></td>
+<?php } ?>
+<td><h3>Details</h3></td>
+</tr>
+<?php
+$i = 0;
+
+ foreach ($this->turnierpaare as $turnierpaar): ?>
+<tr <?php if($i%2 ==0){ echo 'class="gray_background"'; } ?>>
+<td><?php echo $turnierpaar['Hvorname']." ".$turnierpaar['Hnachname']." - ".$turnierpaar['Dvorname']." ".$turnierpaar['Dnachname']; ?></td>
+<td>
+<?php
+
+if(strlen($turnierpaar['classSTD'])> 0 && strlen($turnierpaar['classLAT'])>0){
+	echo $turnierpaar['classSTD']." Std, ".$turnierpaar['classLAT']." Lat";
+}else if(strlen($turnierpaar['classSTD'])> 0){
+	echo $turnierpaar['classSTD']." Std";
+}else if(strlen($turnierpaar['classLAT'])> 0){
+	echo $turnierpaar['classLAT']." Lat";
+	}
+		
+  ?></td>
+  <?php if ($this->tl_turnierpaare_selectCouples =="E") {?>
+<td>
+<?php
+if(strlen($turnierpaar['beginn'])> 0 && strlen($turnierpaar['ende'])>0){
+	echo $turnierpaar['beginn']." - ".$turnierpaar['ende'];
+}else if(strlen($turnierpaar['beginn'])> 0){
+	echo $turnierpaar['beginn'];
+}else if(strlen($turnierpaar['ende'])> 0){
+	echo $turnierpaar['ende'];
+	}
+?>
+</td>
+<?php } ?>
+<td><a href="<?php echo "index.php/".$this->tl_turnierpaare_detail.".html?paar=".$turnierpaar['id'];?>">Details<a></td>
+</tr>
+<?php
+$i++;
+ endforeach; ?>
+ </table>
+</div>
