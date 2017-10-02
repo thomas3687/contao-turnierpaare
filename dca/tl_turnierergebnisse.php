@@ -282,13 +282,12 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
 		'datum'  => array
 		(
 			'label'     => &$GLOBALS['TL_LANG']['tl_turnierergebnisse']['datum'],
-			'inputType' => 'text',
-			'exclude'   => false,
-			'sorting'   => true,
-			'flag'      => 6,
-            'search'    => false,
-			'eval'                    => array('mandatory'=>true, 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard', 'minlength' => 1, 'maxlength'=>64, 'rgxp' => 'date'),
-			'sql'       => "int(10) unsigned NOT NULL default '0'"
+			'exclude'                 => true,
+			'filter'                  => true,
+			'sorting'                 => true,
+			'inputType'               => 'text',
+			'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'doNotCopy'=>true, 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
+			'sql'                     => "int(10) unsigned NULL"
 		)
 		
        )

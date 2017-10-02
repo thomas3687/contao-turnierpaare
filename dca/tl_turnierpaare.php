@@ -14,20 +14,6 @@
         parent::__construct(); 
         $this->import('BackendUser', 'User'); 
     } 
- 
-  public function password_save_callback($var, $dc) 
-  { 
-  if(strlen($var)==0){
-	  if(strlen($dc->activeRecord->startbuchnummer)!=0){
-	return  md5($dc->activeRecord->startbuchnummer);
-	  }else{
-		  
-	return '';	  
-		  }
-	  }else{
-	return $var;	  
-		  }
-  } 
   
   public function name_save_callback($var, $dc){
 	  $herr = $this->Database->prepare("SELECT * 
@@ -234,7 +220,7 @@ $GLOBALS['TL_DCA']['tl_turnierpaare'] = array
 		//weiterleitung auf die turnierpaarbilder des entsprechenden Turnierpaares	
 			'turniererpaarbilder' => array(
                 'label' => &$GLOBALS['TL_LANG']['tl_turnierpaare']['turnierpaarbilder'],
-                'icon' => 'system/modules/turnierpaare/assets/images/photo.png',
+                'icon' => 'sizes.gif',
 				'attributes' => 'class="contextmenu"',
 				//hier wird im link die tabelle festgelegt in der die turnierpaarbilder sind
 				'href'       => 'table=tl_turnierpaarbilder',
@@ -246,7 +232,7 @@ $GLOBALS['TL_DCA']['tl_turnierpaare'] = array
             ),
 			'turnierergebnisse' => array(
                 'label' => &$GLOBALS['TL_LANG']['tl_turnierpaare']['turnierergebnisse'],
-                'icon' => 'system/modules/turnierpaare/assets/images/ergebnisse.png',
+                'icon' => 'featured.gif',
 				'attributes' => 'class="contextmenu"',
 				'href'       => 'table=tl_turnierergebnisse',
 				'button_callback' => array(
