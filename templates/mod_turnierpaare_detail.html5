@@ -18,7 +18,37 @@ $klasse="";
 	
 	echo "<h4 class='orange'>".$klasse."</h4>";
 
+?>
+<div class="rs-columns ce_rs_columns_start first">
+	<div class="rs-column -large-col-5-3 -large-first -large-first-row -medium-col-5-3 -medium-first -medium-first-row -small-col-1-1 -small-first -small-last -small-first-row">
 
+<h2>Turnier-Ergebnisse</h2>
+<div class="ce_table block">
+<table>
+<thead>
+<tr>
+<th>Datum</th><th>Ort</th><th>Klasse</th><th>Ergebnis</th> 
+</tr>
+</thead>
+<?php
+$i=0;
+ foreach ($this->ergebnisse as $ergebnis): ?>
+ <tr  <?php if($i%2==0){ echo 'class="odd"';} ?>  >
+<td><? echo date('d', $ergebnis['datum']).".".date('m', $ergebnis['datum']).".".date('Y', $ergebnis['datum']); ?></td><td><?php echo $ergebnis['ort']?></td><td><?php echo $ergebnis['klasse']?></td><td><?php echo $ergebnis['platz']."/".$ergebnis['paare'];
+if(strlen($ergebnis['kommentar'])>0){ echo " (".$ergebnis['kommentar'].")";  }
+
+?></td> 
+</tr>
+ 
+<?php
+$i++;
+ endforeach; ?>
+</table>
+</div>
+</div>
+
+<div class="rs-column -large-col-5-2 -large-last -large-first-row -medium-col-5-2 -medium-last -medium-first-row -small-col-1-1 -small-first -small-last">
+<?php
 //Bilder
 
 if(count($this->bilder)>0){	
@@ -54,8 +84,7 @@ if(count($this->bilder)>0){
 if(count($this->bilder)>0){
 		
 		?>
-        <div align="center" style="font-weight:bold">Bildergalerie</div>
-        <div style="background-color:#ff6603; height:1px; margin-top:5px; margin-bottom:5px;"></div>
+        <h2>Bildergalerie</h2>
         <div style="overflow:auto;">
         <?
 		
@@ -113,31 +142,6 @@ if(count($this->bilder)>0){
 		}
 //Ende Bilder
 ?>
-
-
-
-
-<div align="center" style="font-weight:bold">Turnier-Ergebnisse</div>
-<div class="ce_table block">
-<table>
-<thead>
-<tr>
-<th>Datum</th><th>Ort</th><th>Klasse</th><th>Ergebnis</th> 
-</tr>
-</thead>
-<?php
-$i=0;
- foreach ($this->ergebnisse as $ergebnis): ?>
- <tr  <?php if($i%2==0){ echo 'class="odd"';} ?>  >
-<td><? echo date('d', $ergebnis['datum']).".".date('m', $ergebnis['datum']).".".date('Y', $ergebnis['datum']); ?></td><td><?php echo $ergebnis['ort']?></td><td><?php echo $ergebnis['klasse']?></td><td><?php echo $ergebnis['platz']."/".$ergebnis['paare'];
-if(strlen($ergebnis['kommentar'])>0){ echo " (".$ergebnis['kommentar'].")";  }
-
-?></td> 
-</tr>
- 
-<?php
-$i++;
- endforeach; ?>
-</table>
+</div>
 </div>
 </div>
