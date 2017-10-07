@@ -55,9 +55,15 @@ class ModuleTurnierpaareList extends Module
    
     	$std = Database::getInstance()->query($sql);
 		
+		$pageModel = \PageModel::findByPK($this->tl_turnierpaare_detail); 
+
+		if ($pageModel) { 
+		   $url = \Controller::generateFrontendUrl($pageModel->row()); 
+		}  
+		
 		//hier wird Template das Feld turnierpaare zugewiesen und mit dem query ergebnis befüllt 	
 		$this->Template->turnierpaare = $std->fetchAllAssoc();
-		
+		$this->Template->detailURL = $url;
 	} 
 	
 }

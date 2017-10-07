@@ -56,10 +56,12 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['tl_turniermeldungen_selection'] = arr
 //speichert die Weiterleitungsseite (Frontend) in er die Details des Turnierpaares angeschaut werden können
 $GLOBALS['TL_DCA']['tl_module']['fields']['tl_turnierpaare_detail'] = array(
        'label' => &$GLOBALS['TL_LANG']['tl_module']['tl_turnierpaare_detail'],
-       'inputType' => 'pageTree',
-       'foreignKey' => 'tl_page.title',
-        'eval' => array('fieldType'=>'radio', 'mandatory'=>true),
-       'sql' => "varchar(255) NOT NULL default ''"
+	'exclude'                 => true,
+	'inputType'               => 'pageTree',
+	'foreignKey'              => 'tl_page.title',
+	'eval'                    => array('mandatory'=>true, 'fieldType'=>'radio', 'tl_class'=>'clr'),
+	'sql'                     => "int(10) unsigned NOT NULL default '0'",
+	'relation'                => array('type'=>'hasOne', 'load'=>'eager')
 );
 
 ?>

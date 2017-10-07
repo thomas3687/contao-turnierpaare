@@ -43,7 +43,7 @@ if(strlen($turnierpaar['beginn'])> 0 && strlen($turnierpaar['ende'])>0){
 ?>
 </td>
 <?php } ?>
-<td><a href="<?php echo "index.php/".$this->tl_turnierpaare_detail.".html?paar=".$turnierpaar['id'];?>">Details<a></td>
+<td><a href="<?php echo $this->detailURL."?paar=".$turnierpaar['id'];?>">Details<a></td>
 </tr>
 <?php
 $i++;
