@@ -118,14 +118,17 @@ if(count($this->bilder)>0){
 
 
 <div align="center" style="font-weight:bold">Turnier-Ergebnisse</div>
-<table class="tabelle_content" style="width:100%;">
+<div class="ce_table block">
+<table>
+<thead>
 <tr>
-<td><h3>Datum</h3></td><td><h3>Ort</h3></td><td><h3>Klasse</h3></td><td><h3>Ergebnis</h3></td> 
+<th>Datum</th><th>Ort</th><th>Klasse</th><th>Ergebnis</th> 
 </tr>
+</thead>
 <?php
 $i=0;
  foreach ($this->ergebnisse as $ergebnis): ?>
- <tr  <?php if($i%2==0){ echo 'class="gray_background"';} ?>  >
+ <tr  <?php if($i%2==0){ echo 'class="odd"';} ?>  >
 <td><? echo date('d', $ergebnis['datum']).".".date('m', $ergebnis['datum']).".".date('Y', $ergebnis['datum']); ?></td><td><?php echo $ergebnis['ort']?></td><td><?php echo $ergebnis['klasse']?></td><td><?php echo $ergebnis['platz']."/".$ergebnis['paare'];
 if(strlen($ergebnis['kommentar'])>0){ echo " (".$ergebnis['kommentar'].")";  }
 
@@ -136,4 +139,5 @@ if(strlen($ergebnis['kommentar'])>0){ echo " (".$ergebnis['kommentar'].")";  }
 $i++;
  endforeach; ?>
 </table>
+</div>
 </div>
