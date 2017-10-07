@@ -3,20 +3,24 @@
  
 <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
 <?php endif; ?>
- <table style="width:100%;" class="tabelle_content">
+<div class="ce_table block">
+ <table>	 
+	<thead> 
  <tr>
-<td><h3>Paar</h3></td>
-<td><h3>Klasse</h3></td>
+<th>Paar</th>
+<th>Klasse</th>
 <?php if ($this->tl_turnierpaare_selectCouples =="E") {?>
-<td><h3>Zeit</h3></td>
+<th>Zeit</th>
 <?php } ?>
-<td><h3>Details</h3></td>
+<th>Details</th>
 </tr>
+	 </thead>
+
 <?php
 $i = 0;
 
  foreach ($this->turnierpaare as $turnierpaar): ?>
-<tr <?php if($i%2 ==0){ echo 'class="gray_background"'; } ?>>
+<tr <?php if($i%2 ==0){ echo 'class="odd"'; } ?>>
 <td><?php echo $turnierpaar['Hvorname']." ".$turnierpaar['Hnachname']." - ".$turnierpaar['Dvorname']." ".$turnierpaar['Dnachname']; ?></td>
 <td>
 <?php
@@ -49,4 +53,5 @@ if(strlen($turnierpaar['beginn'])> 0 && strlen($turnierpaar['ende'])>0){
 $i++;
  endforeach; ?>
  </table>
+</div>
 </div>
