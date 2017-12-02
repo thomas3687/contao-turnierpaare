@@ -17,6 +17,7 @@
     "extra": {
         "contao": {
             "sources": {
+              "assets": "assets/turnierpaare",
                 "./": "system/modules/turnierpaare"
             }
         }

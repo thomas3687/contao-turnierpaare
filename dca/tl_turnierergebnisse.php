@@ -1,72 +1,77 @@
 <?php
-class tl_turnierergebnisse extends Backend 
-{ 
-    /** 
-     * Import the back end user object 
-     */ 
-    public function __construct() 
-    { 
-        parent::__construct(); 
-        $this->import('BackendUser', 'User'); 
-    } 
- 
-  public function getCouples() 
-    { 
-        $couples = array(); 
-        // Get all the active couples 		  
-        $objCouples = $this->Database->prepare("Select p.id From tl_turnierpaare p, tl_member m WHERE p.aktiv = 1 AND p.herr_id = m.id ORDER BY m.firstname
-") 
-                                      ->execute(); 
-        $i = 0;
-		while ($objCouples->next()) 
-        {
-            $couples[$i] =$objCouples->id; 
-			$i++;
-        } 
- 
-        return $couples; 
+class tl_turnierergebnisse extends Backend
+{
+    /**
+     * Import the back end user object
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->import('BackendUser', 'User');
     }
-	
+
+  public function getCouples()
+    {
+        $couples = array();
+        // Get all the active couples
+        $objCouples = $this->Database->prepare("Select p.id From tl_turnierpaare p, tl_member m WHERE p.aktiv = 1 AND p.herr_id = m.id ORDER BY m.firstname
+")
+                                      ->execute();
+        $i = 0;
+		while ($objCouples->next())
+        {
+            $couples[$i] =$objCouples->id;
+			$i++;
+        }
+
+        return $couples;
+    }
+
 	public function getLabel($row, $label){
 		//Namen des Paares einfügen
-		$herr = $this->Database->prepare("SELECT b.firstname, b.lastname FROM tl_turnierergebnisse m, tl_turnierpaare p, tl_member b WHERE m.pid = p.id AND p.herr_id = b.id AND p.id = ".$row['pid']) 
+		$herr = $this->Database->prepare("SELECT b.firstname, b.lastname FROM tl_turnierergebnisse m, tl_turnierpaare p, tl_member b WHERE m.pid = p.id AND p.herr_id = b.id AND p.id = ".$row['pid'])
                          ->execute();
-		$label = str_replace('#herr#',$herr->firstname." ".$herr->lastname,$label);	
-		
-		$dame = $this->Database->prepare("SELECT b.firstname, b.lastname FROM tl_turnierergebnisse m, tl_turnierpaare p, tl_member b WHERE m.pid = p.id AND p.dame_id = b.id AND p.id = ".$row['pid']) 
+		$label = str_replace('#herr#',$herr->firstname." ".$herr->lastname,$label);
+
+		$dame = $this->Database->prepare("SELECT b.firstname, b.lastname FROM tl_turnierergebnisse m, tl_turnierpaare p, tl_member b WHERE m.pid = p.id AND p.dame_id = b.id AND p.id = ".$row['pid'])
                          ->execute();
-		$label = str_replace('#dame#',$dame->firstname." ".$dame->lastname,$label);	
-			 	
+		$label = str_replace('#dame#',$dame->firstname." ".$dame->lastname,$label);
+
 	return $label;
-		
+
 		}
-	
+
+    public function getHeader($group, $sortingMode, $firstOrderBy, $row, $dc)
+	{
+		return date('d.m.Y',$row['datum']);
+	}
+
 	public function getCouplesReference($dc){
 		  $reference = array();
-	  
-	  $objCouples = $this->Database->prepare("SELECT * FROM tl_turnierpaare ORDER BY id") 
-                                      ->execute(); 
+
+	  $objCouples = $this->Database->prepare("SELECT * FROM tl_turnierpaare ORDER BY id")
+                                      ->execute();
 	while($objCouples->next()){
-		
-		$herr = $this->Database->prepare("SELECT * FROM tl_member WHERE id =?") 
+
+		$herr = $this->Database->prepare("SELECT * FROM tl_member WHERE id =?")
                                       ->execute($objCouples->herr_id);
-		$dame = $this->Database->prepare("SELECT * FROM tl_member WHERE id =?") 
-                                      ->execute($objCouples->dame_id);  
-		
+		$dame = $this->Database->prepare("SELECT * FROM tl_member WHERE id =?")
+                                      ->execute($objCouples->dame_id);
+
 		$id = $objCouples->id;
 		$reference[$id] = $herr->firstname." ".$herr->lastname." - ".$dame->firstname." ".$dame->lastname;
-		}								  
-	  $GLOBALS['TL_LANG']['tl_turnierergebnisse']['paarReference'] = $reference; 
-		}	
-	
-	
-} 
+		}
+	  $GLOBALS['TL_LANG']['tl_turnierergebnisse']['paarReference'] = $reference;
+		}
+
+
+}
 /**
  * Table tl_turnierergebnisse
  */
 $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
 (
- 
+
 	// Config
 	'config'   => array
 	(
@@ -86,8 +91,8 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
 			)
 		),
 	),
-	
-	
+
+
 	// List
 	'list'     => array
 	(
@@ -97,17 +102,18 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
 			'fields'      => array('datum DESC', 'ort', 'pid'),
 			'panelLayout' => 'filter,search,limit'
 		),
-		
-		
-		
+
+
+
 		'label'             => array
 		(
 			'fields' => array('ort', 'platz', 'paare', 'klasse', 'kommentar'),
 			'format' => '<strong>%s</strong><br><i>#herr# - #dame#</i> <strong>(%s/%s %s)</strong> %s',
-			'label_callback' => array('tl_turnierergebnisse', 'getLabel')
+			'label_callback' => array('tl_turnierergebnisse', 'getLabel'),
+      'group_callback'   => array('tl_turnierergebnisse', 'getHeader'),
 		),
-		
-		
+
+
 		'global_operations' => array
 		(
 			'all' => array
@@ -118,9 +124,9 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
 				'attributes' => 'onclick="Backend.getScrollOffset()" accesskey="e"'
 			)
 		),
-		
-		
-		
+
+
+
 		'operations'        => array
 		(
 			'edit'   => array
@@ -145,7 +151,7 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
 			),
 		)
 	),
-	
+
 	// Palettes
 	'palettes' => array
 	(
@@ -169,10 +175,10 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
             'foreignKey' => 'tl_turnierpaare.id',
 			'inputType' => 'select',
 			'options_callback'  => array('tl_turnierergebnisse', 'getCouples'),
-			'reference' => &$GLOBALS['TL_LANG']['tl_turnierergebnisse']['paarReference'], 
-			'search'                  => false, 
+			'reference' => &$GLOBALS['TL_LANG']['tl_turnierergebnisse']['paarReference'],
+			'search'                  => false,
             'sorting'                 => true,
-			'filter'				=>true, 
+			'filter'				=>true,
             'sql' => "int(10) unsigned NOT NULL default '0'",
             'relation' => array(
                 'type' => 'belongsTo',
@@ -195,7 +201,7 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -212,7 +218,7 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -229,7 +235,7 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -246,7 +252,7 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -263,7 +269,7 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -273,9 +279,9 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
 			'inputType' => 'select',
 			'foreignKey'=> 'tl_turnierpaare.id',
 			'options_callback'  => array('tl_turnierergebnisse', 'getCouples'),
-			'search'                  => false, 
+			'search'                  => false,
             'sorting'                 => true,
-			'filter'				=>true, 
+			'filter'				=>true,
             'eval'                    => array('mandatory'=>true) ,
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),*/
@@ -289,7 +295,7 @@ $GLOBALS['TL_DCA']['tl_turnierergebnisse'] = array
 			'eval'                    => array('rgxp'=>'date', 'mandatory'=>true, 'doNotCopy'=>true, 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
 			'sql'                     => "int(10) unsigned NULL"
 		)
-		
+
        )
 );
 
