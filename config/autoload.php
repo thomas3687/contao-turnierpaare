@@ -20,7 +20,10 @@ ClassLoader::addClasses(array
 	'ModuleTurnierpaareList'   => 'system/modules/turnierpaare/modules/ModuleTurnierpaareList.php',
 	'ModuleTurnierpaareDetail' => 'system/modules/turnierpaare/modules/ModuleTurnierpaareDetail.php',
 	'ModuleTurnierpaareErgebnissNeu'   => 'system/modules/turnierpaare/modules/ModuleTurnierpaareErgebnissNeu.php',
-	'tc_calendar' => 'system/modules/turnierpaare/assets/calendar/classes/tc_calendar.php'
+	'tc_calendar' => 'system/modules/turnierpaare/assets/calendar/classes/tc_calendar.php',
+	'ModuleTanzpartnervermittlungList'   => 'system/modules/turnierpaare/modules/ModuleTanzpartnervermittlungList.php',
+	'ModuleTanzpartnervermittlungDetail' => 'system/modules/turnierpaare/modules/ModuleTanzpartnervermittlungDetail.php',
+	'ModuleTanzpartnervermittlungNeu' => 'system/modules/turnierpaare/modules/ModuleTanzpartnervermittlungNeu.php'
 ));
 
 
@@ -32,4 +35,7 @@ TemplateLoader::addFiles(array
 	'mod_turnierpaare_detail' => 'system/modules/turnierpaare/templates',
 	'mod_turnierpaare_list'   => 'system/modules/turnierpaare/templates',
 	'mod_turnierpaare_ergebniss_neu'   => 'system/modules/turnierpaare/templates',
+	'mod_tanzpartnervermittlung_list'   => 'system/modules/turnierpaare/templates',
+	'mod_tanzpartnervermittlung_detail' => 'system/modules/turnierpaare/templates',
+	'mod_tanzpartnervermittlung_neu' 	=> 'system/modules/turnierpaare/templates',
 ));

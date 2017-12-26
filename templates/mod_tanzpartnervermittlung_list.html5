@@ -1,0 +1,39 @@
+
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+  <?php if ($this->headline): ?>
+    <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+  <?php endif; ?>
+  
+  <table style="width:100%;" class="tabelle_content">
+ <tr>
+<td><h3>Datum</h3></td>
+<td><h3>Name</h3></td>
+<td><h3>Alter</h3></td>
+<td><h3>Größe</h3></td>
+<td><h3>Sucht für</h3></td>
+<td><h3>Ort</h3></td>
+<td></td>
+</tr>
+  
+  <?php
+$i = 0;
+
+ foreach ($this->anzeigen as $anzeige): ?>
+ 
+ <tr <?php if($i%2 ==0){ echo 'class="gray_background"'; } ?>>
+<td><?php echo date("d.m.Y",$anzeige['date']); ?></td>
+<td><?php echo $anzeige['vorname']." ".$anzeige['nachname']; ?></td>
+<td><?php echo $anzeige['age']; ?></td>
+<td><?php echo $anzeige['height']; ?></td>
+<td><?php echo $anzeige['classes']; ?></td>
+<td><?php echo $anzeige['place']; ?></td>
+<td><a href="<?php echo $this->detailURL."?anzeige=".$anzeige['id'];?>">Profil<a></td>
+</tr>
+ 
+ 
+ 
+ <? $i++;
+ endforeach; ?>
+</table>
+</div>

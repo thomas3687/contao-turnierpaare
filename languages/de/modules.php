@@ -42,4 +42,25 @@ $GLOBALS['TL_LANG']['tl_module']['tl_turnierpaare_ergebniss_email'] = array('Zie
 $GLOBALS['TL_LANG']['tl_module']['tl_turnierpaare_ergebniss_email_absender'] = array('E-Mail Absender', 'Trage hier die E-Mail Adressese des Absenders ein.');
 $GLOBALS['TL_LANG']['tl_module']['tl_turnierpaare_ergebniss_email_name'] = array('Name des Absenders', 'Name des Absenders des Formulars.');
 $GLOBALS['TL_LANG']['tl_module']['tl_turnierpaare_ergebniss_email_subject'] = array('Betreff der E-Mail', 'Betreff der E-Mail z.B Ergebnismeldung.');
+
+$GLOBALS['TL_LANG']['FMD']['tanzpartnervermittlung'] = array('Tanzpartnervermittlung');
+  
+$GLOBALS['TL_LANG']['MOD']['tanzpartneranzeigen'][0] = 'Tanzpartneranzeigen';
+$GLOBALS['TL_LANG']['MOD']['tanzpartneranzeigen'][1] = 'Tanzpartneranzeigen verwalten';
+$GLOBALS['TL_LANG']['MOD']['tanzpartnervermittlung'] = array('Tanzpartnervermittlung', 'Verwaltung der Tanzpartneranzeigen.');
+
+$GLOBALS['TL_LANG']['tl_module']['tl_tanzpartnervermittlung_selectGender_filteroptions'] = array('F'=>'Damen', 'M'=>'Herren');
+
+
+$GLOBALS['TL_LANG']['tl_module']['tanzpartnervermittlung_select_gender_legend'] = 'Damen oder Herren';
+$GLOBALS['TL_LANG']['tl_module']['tanzpartnervermittlung_legend'] = 'Weiterleitung';
+
+$GLOBALS['TL_LANG']['tl_module']['tl_tanzpartnervermittlung_selectGender'][0] = 'Geschlecht';
+$GLOBALS['TL_LANG']['tl_module']['tl_tanzpartnervermittlung_detail'][0] = 'Weiterleitungsseite';
+$GLOBALS['TL_LANG']['tl_module']['tl_tanzpartnervermittlung_detail'][1] = 'Seite die das Details-Modul beinhaltet';
+
+$GLOBALS['TL_LANG']['MOD']['tanzpartnervermittlung'] = 'Tanzpartnervermittlung';
+$GLOBALS['TL_LANG']['FMD']['tanzpartnervermittlung'] = 'Tanzpartnervermittlung';
+$GLOBALS['TL_LANG']['FMD']['tanzpartnervermittlung_list'][0] = 'Anzeigenliste';
+$GLOBALS['TL_LANG']['FMD']['tanzpartnervermittlung_detail'][0] = 'Anzeigen-Detail';
 ?>

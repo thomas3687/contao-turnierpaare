@@ -25,7 +25,18 @@ array_insert($GLOBALS['BE_MOD'], 0, array(
         'tables' => array('tl_turnierergebnisse'),
 		'icon'   => 'system/modules/turnierpaare/assets/images/ergebnisse.png'
       )
-    )
+    ),
+    'tanzpartnervermittlung' => array(
+	// Modul Turnierpaare 
+      'tanzpartneranzeigen' => array 
+      ( 
+	  //hier werden die Tabellen angegeben auf die das Modul zugreifen darf
+        'tables' => array('tl_tanzpartnervermittlung'),
+		//icon zum Modul
+		'icon'   => 'system/modules/turnierpaare/assets/images/tanzpartneranzeigen.png' 
+      )
+	  
+    ) 
   )
 );
 
@@ -42,7 +53,19 @@ $GLOBALS['FE_MOD']['turnierpaare'] = array
 	'turnierpaare_list'     => 'ModuleTurnierpaareList',
 	'turnierpaare_detail'	=> 'ModuleTurnierpaareDetail',
 	'turnierpaare_ergebnisse_list' => 'ModuleTurnierpaareErgebnisseList',
-  'turnierpaare_ergebnisse_neu' => 'ModuleTurnierpaareErgebnissNeu'
+  'turnierpaare_ergebnisse_neu' => 'ModuleTurnierpaareErgebnissNeu',
+  'tanzpartnervermittlung_list' => 'ModuleTanzpartnervermittlungList',
+  'tanzpartnervermittlung_detail' => 'ModuleTanzpartnervermittlungDetail',
+  'tanzpartnervermittlung_neu' => 'ModuleTanzpartnervermittlungNeu'
+);
+
+$GLOBALS['TL_CRON'] = array
+(
+   'monthly' => array(),
+   'weekly'   => array(),
+   'daily'    => array(array('tl_tanzpartnervermittlungCRON', 'checkAnzeigen')),
+   'hourly'   => array(),
+   'minutely' => array()
 );
 
 ?>

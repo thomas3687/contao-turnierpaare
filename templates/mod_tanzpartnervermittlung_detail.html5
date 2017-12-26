@@ -1,0 +1,93 @@
+
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+<?php $anzeige = $this->anzeigen[0]; ?>
+<?php echo $this->backlink; ?>
+    <h1>Profil von <?php echo $anzeige['vorname']." ".$anzeige['nachname'];?></h1>
+    
+    <table width="100%">
+    <tr>
+    	<td><strong>Alter</strong></td>
+        <td><?php echo $anzeige['age'];?> Jahre</td>
+    </tr>
+    <tr>
+    	<td><strong>Größe</strong></td>
+        <td><?php echo $anzeige['height'];?> cm</td>
+    </tr>
+    <tr>
+    	<td><strong>Sucht für</strong></td>
+        <td><?php echo $anzeige['classes'];?></td>
+    </tr>
+    <tr>
+    	<td><strong>Ort</strong></td>
+        <td><?php echo $anzeige['place'];?></td>
+    </tr>
+    </table>
+    <p><strong>Beschreibung</strong></p>
+    <div>
+    <?php echo $anzeige['description'];?>
+    </div>
+    
+    <?php
+	
+	function sendpartnermail($fromemail, $email, $description) {
+                        $text="Hallo!\n\n Jemand hat auf deine Tanzpartner-Anzeige geantwortet:\n\n".$description;
+                       $text=$text."\n\n"."Du kannst über die E-Mail Adresse $fromemail auf die Nachricht antworten.";
+                       mail($email, 'Neue Nachricht von der Astoria-Tanzpartnersuche',$text,"From: $fromemail");
+                      
+                    }
+	
+	$send =false;
+	
+	if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+		
+		 $text=$_POST['text'];
+         $fromemail=$_POST['fromemail'];
+		
+		if(filter_var($fromemail, FILTER_VALIDATE_EMAIL)){
+			
+			if(strlen($text)>0){
+				
+				sendpartnermail($fromemail, $anzeige['email'], $text);
+                               
+                echo('<h3><span class="green">Deine Nachricht von '.$fromemail.' an '.$anzeige['vorname'].' '.$anzeige['nachname'].' wurde gesendet!</h3>');
+				
+				$send =true;
+				
+				}else{
+					echo('<h3><span class="red">Bitte geben Sie einen Text ein!</span><br/></h3>');	
+					}
+			
+			}else{
+				 echo('<h3><span class="red">Die E-Mail Adresse ist ungültig!</span><br/></h3>');
+				}
+		
+		}
+	?>
+    
+    <?php if(!$send){ ?>
+        <p><strong>E-Mail schreiben</strong></p>
+        <form id="login-form" method="post" action="<?php echo $this->Environment->request; ?>">
+
+     <table width="600" border="0" cellspacing="0" cellpadding="10">
+     <tr>
+          <td>*Pflichtfeld</td>
+          <td>&nbsp;</td>
+     </tr>
+      <tr>
+          <td><label for="fromemail">*Absender E-Mail-Adresse: </label></td>
+          <td><input type="text" name="fromemail" id="fromemail" value="<?php if ($fromemail) print($fromemail) ?>"/></td>
+      </tr>
+      <tr>
+          <td><label for="text">*Text: </label></td>
+          <td><textarea name="text" id="description" rows="10" cols="40"><?php if ($text) print($text);?></textarea></td>
+      </tr>
+      <tr>
+           <td>&nbsp;</td>
+           <td><input type="submit" name="submit" id="submit" value="Abschicken" /></td>
+      </tr>
+	  </table>
+<input type="hidden" name="REQUEST_TOKEN" value="<?php echo REQUEST_TOKEN; ?>">
+      </form>
+      <?php } ?>
+</div>

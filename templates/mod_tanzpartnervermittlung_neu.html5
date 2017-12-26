@@ -1,0 +1,255 @@
+<?php
+
+
+$activated = false;
+$removed = false;
+
+if(isset($_GET["activate"]) && strlen($_GET["activate"]) >0 && isset($_GET["remove"]) && $_GET["remove"]=='now'){
+	$sql	= "DELETE FROM tl_tanzpartnervermittlung WHERE code = '".$_GET["activate"]."'";
+
+Database::getInstance()->query($sql);
+$removed = true;
+$activated = true;	
+	}else if(isset($_GET["activate"]) && strlen($_GET["activate"]) >0){
+   //Do something
+   $sql	= "UPDATE tl_tanzpartnervermittlung SET activated = 'Y', date = ".time().", notified = 0 WHERE code = '".$_GET["activate"]."'";
+
+Database::getInstance()->query($sql); $activated = true;
+}
+
+function sendConfirmMail($code, $link) {
+    $vorname=$_POST['vorname'];
+	$nachname=$_POST['nachname'];
+            $gender=$_POST['gender'];
+            $age=$_POST['age'];
+            $class1=$_POST['class1'];
+            $class2=$_POST['class2'];
+            $classes=$class1.'<br>'.$class2;
+            $place=$_POST['place'];
+            $email=$_POST['email'];
+            $height=$_POST['height'];
+            $phone=$_POST['phone'];
+            $description=$_POST['description'];
+			$date = time();
+			
+			
+			$geschlecht="weiblich";
+			if($gender == 'M'){
+				$geschlecht ='männlich';
+				}
+			
+			
+			$link = $link."?activate=".$code;
+			
+			
+$body="Hallo $vorname,
+
+
+Deine Anzeige für die Tanzpartnervermittlung wurde erfolgreich in die Datenbank aufgenommen.
+
+Du hast jetzt noch einmal die Möglichkeit Deine gemachten Angaben zu überprüfen, bevor Deine Anzeige mit nachstehendem Link aktivieren wird.
+
+Hier aktivieren:
+$link
+
+Deine Daten:
+-------------------------------
+Geschlecht: $geschlecht
+Name: $vorname $nachname
+Körpergrösse: $height cm
+Alter: $age Jahre
+E-Mail: $email
+Ort: $place
+Klassen: $class1 $class2
+Lösch-ID: $code
+
+Bemerkung:
+    $description
+
+";
+
+mail($email,'Deine Anzeige auf astoria-karlsruhe.de',$body,"From: partnervermittlung@astoria-karlsruhe.de");
+
+
+ $sql	= "INSERT INTO tl_tanzpartnervermittlung (vorname, nachname , gender, age , classes, class1, class2 , place , email , height, phone, date, description, code, activated, tstamp) VALUES
+                        ('$vorname','$nachname', '$gender','$age','$classes','$class1','$class2','$place', '$email', '$height', '$phone', '$date', '$description', '$code', 'N', $date)";
+
+Database::getInstance()->query($sql);
+
+}
+
+$errors = "";
+$check = true;
+$send = false;
+
+if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+	
+	if(strlen($_POST['vorname'])==0){
+		$check = false;
+		$errors = $errors."<h3 class='red'>Bitte gebe deinen Vornamen ein!</h3>";
+	}
+	
+	if(strlen($_POST['nachname'])==0){
+		$check = false;
+		$errors = $errors."<h3 class='red'>Bitte gebe deinen Nachnamen ein!</h3>";
+	}
+	
+	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+		$check = false;
+		$errors = $errors."<h3 class='red'>Bitte gebe eine gültige E-Mail-Adresse ein!</h3>";
+	}
+	
+	if(strlen($_POST['class1'])==0){
+		$check = false;
+		$errors = $errors."<h3 class='red'>Bitte wähle mindestens eine Disziplin aus!</h3>";
+	}
+	
+	if(strlen($_POST['description'])==0){
+		$check = false;
+		$errors = $errors."<h3 class='red'>Bitte gebe eine Beschreibung ein!</h3>";
+	}
+	
+	if($check){
+		$code = substr(md5(uniqid(rand(), true)), 0, 16);
+		sendConfirmMail($code, $this->Environment->base.$this->Environment->request);
+		$send = true;
+		}
+	
+	}
+
+?>
+
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+<?php if ($this->headline): ?>
+<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+<?php endif; ?>
+
+<?php
+echo $errors;
+
+if(!$send && !$activated){
+
+?>
+
+<form method="post" action="<?php echo $this->Environment->request; ?>">
+<table>
+<tr>
+	<td>Ich bin*</td>
+    <td></td>
+    <td>
+    <select type="text" name="gender" id="gender"/>
+    	<option <?php if ($_POST['gender'] == "M"){echo "selected";}?> value="M">ein Herr</option>
+        <option <?php if ($_POST['gender'] == "F"){echo "selected";}?> value="F">eine Frau</option>
+    </select>   
+    </td>
+</tr>
+<tr>
+	<td>Vorname*</td>
+    <td></td>
+    <td><input type="text" name="vorname" id="vorname" value="<?php if ($_POST['vorname']) print($_POST['vorname']) ?>"/></td>
+</tr>
+<tr>
+	<td>Nachname*</td>
+    <td></td>
+    <td><input type="text" name="nachname" id="nachname" value="<?php if ($_POST['nachname']) print($_POST['nachname']) ?>"/></td>
+</tr>
+<tr>
+	<td>E-Mail*</td>
+    <td></td>
+    <td><input type="text" name="email" id="email" value="<?php if ($_POST['email']) print($_POST['email']) ?>"/></td>
+</tr>
+<tr>
+	<td>Disziplin 1*</td>
+    <td></td>
+    <td>
+    <select type="text" name="class1" id="class1"/>
+    	<option value="">keine</option>
+    	<option <?php if ($_POST['class1'] == "Breitensport"){echo "selected";}?> value="Breitensport">Breitensport</option>
+        <option <?php if ($_POST['class1'] == "Gesellschaftskreis"){echo "selected";}?> value="Gesellschaftskreis">Gesellschaftskreis</option>
+        <option <?php if ($_POST['class1'] == "Vorturnier"){echo "selected";}?> value="Vorturnier">Vorturnier</option>
+        <option <?php if ($_POST['class1'] == "Tango"){echo "selected";}?> value="Tango">Tango</option>
+        <option <?php if ($_POST['class1'] == "Salsa"){echo "selected";}?> value="Salsa">Salsa</option>
+        <option <?php if ($_POST['class1'] == "D-Lat"){echo "selected";}?> value="D-Lat">D-Latein</option>
+        <option <?php if ($_POST['class1'] == "C-Lat"){echo "selected";}?> value="C-Lat">C-Latein</option>
+        <option <?php if ($_POST['class1'] == "B-Lat"){echo "selected";}?> value="B-Lat">B-Latein</option>
+        <option <?php if ($_POST['class1'] == "A-Lat"){echo "selected";}?> value="A-Lat">A-Latein</option>
+        <option <?php if ($_POST['class1'] == "S-Lat"){echo "selected";}?> value="S-Lat">S-Latein</option>
+        <option <?php if ($_POST['class1'] == "D-Std"){echo "selected";}?> value="D-Std">D-Standard</option>
+        <option <?php if ($_POST['class1'] == "C-Std"){echo "selected";}?> value="C-Std">C-Standard</option>
+        <option <?php if ($_POST['class1'] == "B-Std"){echo "selected";}?> value="B-Std">B-Standard</option>
+        <option <?php if ($_POST['class1'] == "A-Std"){echo "selected";}?> value="A-Std">A-Standard</option>
+        <option <?php if ($_POST['class1'] == "S-Std"){echo "selected";}?> value="S-Std">S-Standard</option>
+    </select>
+    </td>
+</tr>
+<tr>
+	<td>Disziplin 2</td>
+    <td></td>
+    <td>
+    <select type="text" name="class2" id="class2"/>
+    	<option value="">keine</option>
+        <option <?php if ($_POST['class2'] == "Breitensport"){echo "selected";}?> value="Breitensport">Breitensport</option>
+        <option <?php if ($_POST['class2'] == "Gesellschaftskreis"){echo "selected";}?> value="Gesellschaftskreis">Gesellschaftskreis</option>
+        <option <?php if ($_POST['class2'] == "Vorturnier"){echo "selected";}?> value="Vorturnier">Vorturnier</option>
+        <option <?php if ($_POST['class2'] == "Tango"){echo "selected";}?> value="Tango">Tango</option>
+        <option <?php if ($_POST['class2'] == "Salsa"){echo "selected";}?> value="Salsa">Salsa</option>
+        <option <?php if ($_POST['class2'] == "D-Lat"){echo "selected";}?> value="D-Lat">D-Latein</option>
+        <option <?php if ($_POST['class2'] == "C-Lat"){echo "selected";}?> value="C-Lat">C-Latein</option>
+        <option <?php if ($_POST['class2'] == "B-Lat"){echo "selected";}?> value="B-Lat">B-Latein</option>
+        <option <?php if ($_POST['class2'] == "A-Lat"){echo "selected";}?> value="A-Lat">A-Latein</option>
+        <option <?php if ($_POST['class2'] == "S-Lat"){echo "selected";}?> value="S-Lat">S-Latein</option>
+        <option <?php if ($_POST['class2'] == "D-Std"){echo "selected";}?> value="D-Std">D-Standard</option>
+        <option <?php if ($_POST['class2'] == "C-Std"){echo "selected";}?> value="C-Std">C-Standard</option>
+        <option <?php if ($_POST['class2'] == "B-Std"){echo "selected";}?> value="B-Std">B-Standard</option>
+        <option <?php if ($_POST['class2'] == "A-Std"){echo "selected";}?> value="A-Std">A-Standard</option>
+        <option <?php if ($_POST['class2'] == "S-Std"){echo "selected";}?> value="S-Std">S-Standard</option>
+    </select>
+    </td>
+</tr>
+<tr>
+	<td>Alter</td>
+    <td></td>
+    <td><input type="text" name="age" id="age" value="<?php if ($_POST['age']) print($_POST['age']) ?>"/> Jahre</td>
+</tr>
+<tr>
+	<td>Körpergröße</td>
+    <td></td>
+    <td><input type="text" name="height" id="height" value="<?php if ($_POST['height']) print($_POST['height']) ?>"/> cm</td>
+</tr>
+<tr>
+	<td>Ort</td>
+    <td></td>
+    <td><input type="text" name="place" id="place" value="<?php if ($_POST['place']) print($_POST['place']) ?>"/></td>
+</tr>
+<tr>
+	<td>Telefon</td>
+    <td></td>
+    <td><input type="text" name="phone" id="phone" value="<?php if ($_POST['phone']) print($_POST['phone']) ?>"/></td>
+</tr>
+<tr>
+	<td>Beschreibung*</td>
+    <td></td>
+    <td><textarea name="description" id="description" ROWS=10 COLS=40><?php if ($_POST['description']) print($_POST['description']) ?></textarea></td>
+</tr>
+<tr>
+	<td><input type="submit" name="submit" id="submit" value="Abschicken" /></td>
+    <td></td>
+    <td></td>
+</tr>
+</table>
+<input type="hidden" name="REQUEST_TOKEN" value="<?php echo REQUEST_TOKEN; ?>">
+      </form>
+</form>
+
+<?php }else if($send && !$activated){?>
+    <p class="green">Deine Anzeige für die Tanzpartnervermittlung wurde erfolgreich in die Datenbank aufgenommen.</p>
+    <p class="green">
+    Um deine Anzeige zu aktivieren, wurde dir per E-Mail ein Link zugestellt.
+    </p>
+<?php }else if ($activated && !$removed){ ?>
+<p class="green">Deine Anzeige wurde erfolgreich aktiviert!</p>
+<?php }else if ($activated && $removed){ ?>
+<p class="green">Deine Anzeige wurde erfolgreich aus der Datenbank entfernt!</p>
+<?php }?>
+</div>
