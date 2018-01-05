@@ -1,143 +1,151 @@
 <?php
- 
+
  /*klasse tl_turnierpaare
  hier werden hauptsächlich callback Funktionen implementiert die wir im DCA von der tabelle tl_turnierpaare benötigen
- 
+
  */
- class tl_turnierpaare extends Backend 
-{ 
-    /** 
-     * Import the back end user object 
-     */ 
-    public function __construct() 
-    { 
-        parent::__construct(); 
-        $this->import('BackendUser', 'User'); 
-    } 
-  
-  public function name_save_callback($var, $dc){
-	  $herr = $this->Database->prepare("SELECT * 
-                                                FROM tl_member 
-                                                WHERE id=".$dc->activeRecord->herr_id) 
+ class tl_turnierpaare extends Backend
+{
+    /**
+     * Import the back end user object
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->import('BackendUser', 'User');
+    }
+
+  public function dame_save_callback($var, $dc){
+	  $dame = $this->Database->prepare("SELECT *
+                                                FROM tl_member
+                                                WHERE id=".$dc->activeRecord->dame_id)
                                    ->execute();
-	  $dame = $this->Database->prepare("SELECT * 
-                                                FROM tl_member 
-                                                WHERE id=".$dc->activeRecord->dame_id) 
-                                   ->execute();
-								   
-	$this->Database->prepare("UPDATE tl_turnierpaare SET Hvorname=?, Hnachname=?, Dvorname=?, Dnachname=? WHERE id=?") 
-                              ->executeUncached($herr->firstname,$herr->lastname,$dame->firstname,$dame->lastname, $dc->id); 	
-									   			   
+
+	  $this->Database->prepare("UPDATE tl_turnierpaare SET Dvorname=?, Dnachname=? WHERE id=?")
+                              ->executeUncached($dame->firstname,$dame->lastname, $dc->id);
+
 	  return $var;
 	  }
-  
-  
+
+    public function herr_save_callback($var, $dc){
+  	  $herr = $this->Database->prepare("SELECT *
+                                                  FROM tl_member
+                                                  WHERE id=".$dc->activeRecord->herr_id)
+                                     ->execute();
+
+  	  $this->Database->prepare("UPDATE tl_turnierpaare SET Hvorname=?, Hnachname=? WHERE id=?")
+                                ->executeUncached($herr->firstname,$herr->lastname,$dc->id);
+
+  	  return $var;
+  	  }
+
+
   public function getHerren(){
 	  $herren = array();
-	  $objCouples = $this->Database->prepare("SELECT * 
-                                                FROM tl_member 
-                                                WHERE gender = 'male' 
-                                                ORDER by firstname") 
-                                   ->execute(); 
-	  $herren[0] ='';  
+	  $objCouples = $this->Database->prepare("SELECT *
+                                                FROM tl_member
+                                                WHERE gender = 'male'
+                                                ORDER by firstname")
+                                   ->execute();
+	  $herren[0] ='';
 	  $i = 1;
-	   while ($objCouples->next()) 
-        { 
-		
-		$sur_groups = unserialize($objCouples->groups); 
+	   while ($objCouples->next())
+        {
+
+		$sur_groups = unserialize($objCouples->groups);
 
         if(in_array(1,$sur_groups)) {
-		
-            $v = $objCouples->firstname." ".$objCouples->lastname; 
+
+            $v = $objCouples->firstname." ".$objCouples->lastname;
             $herren[$i] =$objCouples->id;
-			$i++; 
+			$i++;
 		}
-        } 
+        }
 		return $herren;
 	  }
    public function getDamen(){
 	  $damen = array();
-	  $objCouples = $this->Database->prepare("SELECT * 
-                                                FROM tl_member 
-                                                WHERE gender = 'female' 
-                                                ORDER by firstname") 
-                                      ->execute(); 
-	  $damen[0] ='';  
+	  $objCouples = $this->Database->prepare("SELECT *
+                                                FROM tl_member
+                                                WHERE gender = 'female'
+                                                ORDER by firstname")
+                                      ->execute();
+	  $damen[0] ='';
 	  $i = 1;
-	   while ($objCouples->next()) 
-        { 
-		$sur_groups = unserialize($objCouples->groups); 
+	   while ($objCouples->next())
+        {
+		$sur_groups = unserialize($objCouples->groups);
 
         if(in_array(1,$sur_groups)) {
-            $v = $objCouples->firstname." ".$objCouples->lastname; 
+            $v = $objCouples->firstname." ".$objCouples->lastname;
             $damen[$i] =$objCouples->id;
-			$i++; 
+			$i++;
 		}
-        } 
+        }
 		return $damen;
-	  }  
-  
-  
+	  }
+
+
   public function getKlassen(){
-	  
+
 	  $klassen = array('','Kin I D','Kin I C','Kin II D','Kin II C','Jun I D','Jun I C','Jun I B','Jun II D','Jun II C','Jun II B','Jug D','Jug C','Jug B','Jug A','Hgr D','Hgr C','Hgr B','Hgr A','Hgr S','Hgr II D','Hgr II C','Hgr II B','Hgr II A','Hgr II S','Sen I D','Sen I C','Sen I B','Sen I A','Sen I S','Sen II D','Sen II C','Sen II B','Sen II A','Sen II S','Sen III D','Sen III C','Sen III B','Sen III A','Sen III S','Sen IV A','Sen IV S','Beginners LWD 1 Combi','Beginners LWD 2 Combi','Beginners LWD 1 Duo','Beginners LWD 2 Duo','Fortgeschrittene LWD 1 Combi','Fortgeschrittene LWD 2 Combi','Fortgeschrittene LWD 1 Duo','Fortgeschrittene LWD 2 Duo','Leistungsklasse LWD 1 Combi','Leistungsklasse LWD 2 Combi','Leistungsklasse LWD 1 Duo','Leistungsklasse LWD 2 Duo','Breitensport');
-	  
+
 	  return $klassen;
 	  }
-  
-  public function password_reset_callback($var, $dc) 
-  { 
+
+  public function password_reset_callback($var, $dc)
+  {
   if(strlen($var)==1){
 	  if(strlen($dc->activeRecord->startbuchnummer)!=0){
-	$row = $this->Database->prepare("SELECT * FROM tl_turnierpaare WHERE id=?") 
+	$row = $this->Database->prepare("SELECT * FROM tl_turnierpaare WHERE id=?")
                               ->execute($dc->id);
-	$pw = 	md5($row->startbuchnummer);					  
-							  
-	$this->Database->prepare("UPDATE tl_turnierpaare SET password='".$pw."' WHERE id=?") 
-                              ->executeUncached($dc->id); 						  
-	  }  
+	$pw = 	md5($row->startbuchnummer);
+
+	$this->Database->prepare("UPDATE tl_turnierpaare SET password='".$pw."' WHERE id=?")
+                              ->executeUncached($dc->id);
+	  }
   }
   return 0;
-  } 
-  
+  }
+
   public function loadPaarReference($dc){
-	
+
 	  $reference = array();
-	  
-	  $objCouples = $this->Database->prepare("SELECT * FROM tl_member ORDER BY id") 
-                                      ->execute(); 
+
+	  $objCouples = $this->Database->prepare("SELECT * FROM tl_member ORDER BY id")
+                                      ->execute();
 	while($objCouples->next()){
 		$id = $objCouples->id;
 		$reference[$id] = $objCouples->firstname." ".$objCouples->lastname;
-		}								  
-	  $GLOBALS['TL_LANG']['tl_turnierpaare']['paarReference'] = $reference; 
+		}
+	  $GLOBALS['TL_LANG']['tl_turnierpaare']['paarReference'] = $reference;
 	  }
-  
+
 	public function buttonTurnierpaarbilder($row, $href, $label, $title, $icon, $attributes)
     {
         return '<a href="' . $this->addToUrl($href . '&id=' . $row['id'], 1) . '" title="' . specialchars($title) . '"' . $attributes . '>' . $this->generateImage($icon, $label) . '</a> ';
     }
-	
+
 	public function buttonTurnierergebnisse($row, $href, $label, $title, $icon, $attributes)
     {
         return '<a href="' . $this->addToUrl($href . '&id=' . $row['id'], 1) . '" title="' . specialchars($title) . '"' . $attributes . '>' . $this->generateImage($icon, $label) . '</a> ';
-    }	
-} 
- 
+    }
+}
+
 /**
  * Table tl_turnierpaare
  */
- 
+
  /*
  Hier wird die eigentliche MySQL Tabelle angelegt und konfiguriert, sowie festgelegt in welcher Form die einzelnen Felder im Backend ausgefüllt werden können
- 
+
  nähere infos zu den einzelnen Felder:
  https://contao.org/de/manual/3.2/data-container-arrays.html
- 
+
  */
 $GLOBALS['TL_DCA']['tl_turnierpaare'] = array
 (
- 
+
 	// Config
 	'config'   => array
 	(
@@ -148,7 +156,7 @@ $GLOBALS['TL_DCA']['tl_turnierpaare'] = array
 			hierbei gilt zum Beispiel tl_turnierpaare.id = tl_turnierergebnisse.pid
 			Dies ist besonders praktisch da hier contao für uns vorselektiert wenn wir später im Backend unter Turnierpaare in Paar auswählen und in einem unter Menu die Ergebnisse anschauen wollen
 			Entsprechend muss in den DCA's im Bereich config der Kindertabellen der Eintrag 'ptable' = 'tl_turnierpaare' gesetzt werden
-			
+
 		*/
 		'ctable'			=> array('tl_turnierpaarbilder', 'tl_turnierergebnisse'),
 		'onload_callback' => array
@@ -163,8 +171,8 @@ $GLOBALS['TL_DCA']['tl_turnierpaare'] = array
 			)
 		),
 	),
-	
-	
+
+
 	// List
 	'list'     => array
 	(
@@ -181,19 +189,19 @@ $GLOBALS['TL_DCA']['tl_turnierpaare'] = array
 			*/
 			'panelLayout' => 'filter,sort,search'
 		),
-		
+
 		/*
 		hier wird die Darstellung der einzelnen Reihe im Backend formatiert
 		fields = diese Tabellenfelder werden benötigt
 		format = eingetliche formatierung der Reihe, HTML tags können verwendet werden
 		*/
-		
+
 		'label'             => array
 		(
 			'fields' => array('herr_id:tl_member.firstname', 'herr_id:tl_member.lastname', 'dame_id:tl_member.firstname', 'dame_id:tl_member.lastname'),
 			'format' => '%s %s - %s %s',
 		),
-		
+
 		//Globale Operationen
 		'global_operations' => array
 		(
@@ -205,8 +213,8 @@ $GLOBALS['TL_DCA']['tl_turnierpaare'] = array
 				'attributes' => 'onclick="Backend.getScrollOffset()" accesskey="e"'
 			)
 		),
-		
-		
+
+
 		//Operationen pro Reihe
 		'operations'        => array
 		(
@@ -217,7 +225,7 @@ $GLOBALS['TL_DCA']['tl_turnierpaare'] = array
 				'href'  => 'act=edit&mode=0',
 				'icon'  => 'edit.gif'
 			),
-		//weiterleitung auf die turnierpaarbilder des entsprechenden Turnierpaares	
+		//weiterleitung auf die turnierpaarbilder des entsprechenden Turnierpaares
 			'turniererpaarbilder' => array(
                 'label' => &$GLOBALS['TL_LANG']['tl_turnierpaare']['turnierpaarbilder'],
                 'icon' => 'sizes.gif',
@@ -254,18 +262,18 @@ $GLOBALS['TL_DCA']['tl_turnierpaare'] = array
 				'icon'       => 'show.gif',
 				'attributes' => 'style="margin-right:3px"'
 			),
-			
+
 		)
 	),
-	
+
 	// Palettes
 	/*
 	Palette = Layout im Bearbeitungsbereich eines Turnierpaares
-	
+
 	Formatierung: {...} = Bereichsüberschift Platzhalter
 	Danch die eingentliche Felder die bearbeitet werden sollen die durch ',' getrennt werden und ein neuer Bereich durch ';' angelegt
-	
-	
+
+
 	*/
 	'palettes' => array
 	(
@@ -286,7 +294,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
 		(
 			'sql' => "int(10) unsigned NOT NULL auto_increment"
 		),
-	//Pflichtfeld	
+	//Pflichtfeld
 		'tstamp' => array
 		(
 			'sql' => "int(10) unsigned NOT NULL default '0'"
@@ -296,18 +304,19 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
 			'label'     => &$GLOBALS['TL_LANG']['tl_turnierpaare']['herr_id'],
 			'inputType' => 'select',
 			'options_callback' => array('tl_turnierpaare', 'getHerren'),
+      'save_callback' => array(array('tl_turnierpaare','herr_save_callback')),
 			'reference' => &$GLOBALS['TL_LANG']['tl_turnierpaare']['paarReference'],
 			'exclude'   => false,
 			'sorting'   => false,
 			'search'    => false,
 			'flag'      => 1,
-                    
+
 			'eval'      => array(
 				'mandatory'   => true,
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -316,6 +325,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
 			'label'     => &$GLOBALS['TL_LANG']['tl_turnierpaare']['dame_id'],
 			'inputType' => 'select',
 			'options_callback' => array('tl_turnierpaare', 'getDamen'),
+      'save_callback' => array(array('tl_turnierpaare','dame_save_callback')),
 			'reference' => &$GLOBALS['TL_LANG']['tl_turnierpaare']['paarReference'],
 			'exclude'   => false,
 			'sorting'   => false,
@@ -326,7 +336,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -342,7 +352,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -359,7 +369,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -376,7 +386,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -393,7 +403,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -411,7 +421,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -429,7 +439,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -447,7 +457,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -465,7 +475,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -490,7 +500,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -507,7 +517,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		),
@@ -524,11 +534,10 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                                 'unique'         => false,
                                 'maxlength'   => 255,
 				'tl_class'        => 'w50',
- 
+
 			),
 			'sql'       => "varchar(255) NOT NULL default ''"
 		)
-		
+
        )
 );
-
