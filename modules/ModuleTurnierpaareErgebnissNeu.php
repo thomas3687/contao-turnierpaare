@@ -452,10 +452,10 @@ class ModuleTurnierpaareErgebnissNeu extends Module
             $this->Template->infoRedaktion = $infoRedaktion;
           }else{
 
-            if(!isset($geteilt)){
-                $platz= $platz.".";
+            if(strlen($geteilt) > 0){
+								$platz= $platz.". - ".$bis_platz.".";
               }else{
-                $platz= $platz.". - ".$bis_platz.".";
+              	$platz= $platz.".";
             }
 
             ### Konfiguration ###
