@@ -15,11 +15,13 @@
         $this->import('BackendUser', 'User');
     }
 
-  public function dame_save_callback($var, $dc){
+  public function dame_save_callback($var, DataContainer $dc){
+
+    $dame_id = $dc->activeRecord->dame_id;
 	  $dame = $this->Database->prepare("SELECT *
                                                 FROM tl_member
-                                                WHERE id=".$dc->activeRecord->dame_id)
-                                   ->execute();
+                                                WHERE id=?")
+                                   ->execute($dame_id);
 
 	  $this->Database->prepare("UPDATE tl_turnierpaare SET Dvorname=?, Dnachname=? WHERE id=?")
                               ->executeUncached($dame->firstname,$dame->lastname, $dc->id);
@@ -27,11 +29,13 @@
 	  return $var;
 	  }
 
-    public function herr_save_callback($var, $dc){
+    public function herr_save_callback($var, DataContainer $dc){
+
+      $herr_id = $dc->activeRecord->herr_id;
   	  $herr = $this->Database->prepare("SELECT *
                                                   FROM tl_member
-                                                  WHERE id=".$dc->activeRecord->herr_id)
-                                     ->execute();
+                                                  WHERE id=?")
+                                     ->execute($dame_id);
 
   	  $this->Database->prepare("UPDATE tl_turnierpaare SET Hvorname=?, Hnachname=? WHERE id=?")
                                 ->executeUncached($herr->firstname,$herr->lastname,$dc->id);
