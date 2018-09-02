@@ -35,7 +35,7 @@
   	  $herr = $this->Database->prepare("SELECT *
                                                   FROM tl_member
                                                   WHERE id=?")
-                                     ->execute($dame_id);
+                                     ->execute($herr_id);
 
   	  $this->Database->prepare("UPDATE tl_turnierpaare SET Hvorname=?, Hnachname=? WHERE id=?")
                                 ->executeUncached($herr->firstname,$herr->lastname,$dc->id);
