@@ -92,7 +92,7 @@
 
   public function getKlassen(){
 
-	  $klassen = array('','Kin I D','Kin I C','Kin II D','Kin II C','Jun I D','Jun I C','Jun I B','Jun II D','Jun II C','Jun II B','Jug D','Jug C','Jug B','Jug A','Hgr D','Hgr C','Hgr B','Hgr A','Hgr S','Hgr II D','Hgr II C','Hgr II B','Hgr II A','Hgr II S','Sen I D','Sen I C','Sen I B','Sen I A','Sen I S','Sen II D','Sen II C','Sen II B','Sen II A','Sen II S','Sen III D','Sen III C','Sen III B','Sen III A','Sen III S','Sen IV A','Sen IV S','Beginners LWD 1 Combi','Beginners LWD 2 Combi','Beginners LWD 1 Duo','Beginners LWD 2 Duo','Fortgeschrittene LWD 1 Combi','Fortgeschrittene LWD 2 Combi','Fortgeschrittene LWD 1 Duo','Fortgeschrittene LWD 2 Duo','Leistungsklasse LWD 1 Combi','Leistungsklasse LWD 2 Combi','Leistungsklasse LWD 1 Duo','Leistungsklasse LWD 2 Duo','Breitensport');
+	  $klassen = array('','Kin I D','Kin I C','Kin II D','Kin II C','Jun I D','Jun I C','Jun I B','Jun II D','Jun II C','Jun II B','Jug D','Jug C','Jug B','Jug A','Hgr D','Hgr C','Hgr B','Hgr A','Hgr S','Hgr II D','Hgr II C','Hgr II B','Hgr II A','Hgr II S','Sen I D','Sen I C','Sen I B','Sen I A','Sen I S','Sen II D','Sen II C','Sen II B','Sen II A','Sen II S','Sen III D','Sen III C','Sen III B','Sen III A','Sen III S','Sen IV B','Sen IV A','Sen IV S','Beginners LWD 1 Combi','Beginners LWD 2 Combi','Beginners LWD 1 Duo','Beginners LWD 2 Duo','Fortgeschrittene LWD 1 Combi','Fortgeschrittene LWD 2 Combi','Fortgeschrittene LWD 1 Duo','Fortgeschrittene LWD 2 Duo','Leistungsklasse LWD 1 Combi','Leistungsklasse LWD 2 Combi','Leistungsklasse LWD 1 Duo','Leistungsklasse LWD 2 Duo','Breitensport');
 
 	  return $klassen;
 	  }
