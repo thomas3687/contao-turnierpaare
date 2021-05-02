@@ -1,0 +1,138 @@
+
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+<?php if ($this->headline): ?>
+<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+<?php endif; ?>
+
+<?php
+echo $this->errors;
+
+if($this->removed){?>
+    <p class="green">Deine Anzeige wurde erfolgreich aus der Datenbank entfernt!</p>
+    <?
+}
+
+if(!$this->send && !$this->activated){
+?>
+
+<form method="post" action="<?php echo $this->Environment->request; ?>">
+<table>
+<tr>
+	<td>Ich bin*</td>
+    <td></td>
+    <td>
+    <select type="text" name="gender" id="gender"/>
+    	<option <?php if ($_POST['gender'] == "M"){echo "selected";}?> value="M">ein Herr</option>
+        <option <?php if ($_POST['gender'] == "F"){echo "selected";}?> value="F">eine Frau</option>
+    </select>   
+    </td>
+</tr>
+<tr>
+	<td>Vorname*</td>
+    <td></td>
+    <td><input type="text" name="vorname" id="vorname" value="<?php if ($_POST['vorname']) print($_POST['vorname']) ?>"/></td>
+</tr>
+<tr>
+	<td>Nachname*</td>
+    <td></td>
+    <td><input type="text" name="nachname" id="nachname" value="<?php if ($_POST['nachname']) print($_POST['nachname']) ?>"/></td>
+</tr>
+<tr>
+	<td>E-Mail*</td>
+    <td></td>
+    <td><input type="text" name="email" id="email" value="<?php if ($_POST['email']) print($_POST['email']) ?>"/></td>
+</tr>
+<tr>
+	<td>Disziplin 1*</td>
+    <td></td>
+    <td>
+    <select type="text" name="class1" id="class1"/>
+    	<option value="">keine</option>
+    	<option <?php if ($_POST['class1'] == "Breitensport"){echo "selected";}?> value="Breitensport">Breitensport</option>
+        <option <?php if ($_POST['class1'] == "Gesellschaftskreis"){echo "selected";}?> value="Gesellschaftskreis">Gesellschaftskreis</option>
+        <option <?php if ($_POST['class1'] == "Vorturnier"){echo "selected";}?> value="Vorturnier">Vorturnier</option>
+        <option <?php if ($_POST['class1'] == "Tango"){echo "selected";}?> value="Tango">Tango</option>
+        <option <?php if ($_POST['class1'] == "Salsa"){echo "selected";}?> value="Salsa">Salsa</option>
+        <option <?php if ($_POST['class1'] == "D-Lat"){echo "selected";}?> value="D-Lat">D-Latein</option>
+        <option <?php if ($_POST['class1'] == "C-Lat"){echo "selected";}?> value="C-Lat">C-Latein</option>
+        <option <?php if ($_POST['class1'] == "B-Lat"){echo "selected";}?> value="B-Lat">B-Latein</option>
+        <option <?php if ($_POST['class1'] == "A-Lat"){echo "selected";}?> value="A-Lat">A-Latein</option>
+        <option <?php if ($_POST['class1'] == "S-Lat"){echo "selected";}?> value="S-Lat">S-Latein</option>
+        <option <?php if ($_POST['class1'] == "D-Std"){echo "selected";}?> value="D-Std">D-Standard</option>
+        <option <?php if ($_POST['class1'] == "C-Std"){echo "selected";}?> value="C-Std">C-Standard</option>
+        <option <?php if ($_POST['class1'] == "B-Std"){echo "selected";}?> value="B-Std">B-Standard</option>
+        <option <?php if ($_POST['class1'] == "A-Std"){echo "selected";}?> value="A-Std">A-Standard</option>
+        <option <?php if ($_POST['class1'] == "S-Std"){echo "selected";}?> value="S-Std">S-Standard</option>
+    </select>
+    </td>
+</tr>
+<tr>
+	<td>Disziplin 2</td>
+    <td></td>
+    <td>
+    <select type="text" name="class2" id="class2"/>
+    	<option value="">keine</option>
+        <option <?php if ($_POST['class2'] == "Breitensport"){echo "selected";}?> value="Breitensport">Breitensport</option>
+        <option <?php if ($_POST['class2'] == "Gesellschaftskreis"){echo "selected";}?> value="Gesellschaftskreis">Gesellschaftskreis</option>
+        <option <?php if ($_POST['class2'] == "Vorturnier"){echo "selected";}?> value="Vorturnier">Vorturnier</option>
+        <option <?php if ($_POST['class2'] == "Tango"){echo "selected";}?> value="Tango">Tango</option>
+        <option <?php if ($_POST['class2'] == "Salsa"){echo "selected";}?> value="Salsa">Salsa</option>
+        <option <?php if ($_POST['class2'] == "D-Lat"){echo "selected";}?> value="D-Lat">D-Latein</option>
+        <option <?php if ($_POST['class2'] == "C-Lat"){echo "selected";}?> value="C-Lat">C-Latein</option>
+        <option <?php if ($_POST['class2'] == "B-Lat"){echo "selected";}?> value="B-Lat">B-Latein</option>
+        <option <?php if ($_POST['class2'] == "A-Lat"){echo "selected";}?> value="A-Lat">A-Latein</option>
+        <option <?php if ($_POST['class2'] == "S-Lat"){echo "selected";}?> value="S-Lat">S-Latein</option>
+        <option <?php if ($_POST['class2'] == "D-Std"){echo "selected";}?> value="D-Std">D-Standard</option>
+        <option <?php if ($_POST['class2'] == "C-Std"){echo "selected";}?> value="C-Std">C-Standard</option>
+        <option <?php if ($_POST['class2'] == "B-Std"){echo "selected";}?> value="B-Std">B-Standard</option>
+        <option <?php if ($_POST['class2'] == "A-Std"){echo "selected";}?> value="A-Std">A-Standard</option>
+        <option <?php if ($_POST['class2'] == "S-Std"){echo "selected";}?> value="S-Std">S-Standard</option>
+    </select>
+    </td>
+</tr>
+<tr>
+	<td>Alter</td>
+    <td></td>
+    <td><input type="text" name="age" id="age" value="<?php if ($_POST['age']) print($_POST['age']) ?>"/> Jahre</td>
+</tr>
+<tr>
+	<td>Körpergröße</td>
+    <td></td>
+    <td><input type="text" name="height" id="height" value="<?php if ($_POST['height']) print($_POST['height']) ?>"/> cm</td>
+</tr>
+<tr>
+	<td>Ort</td>
+    <td></td>
+    <td><input type="text" name="place" id="place" value="<?php if ($_POST['place']) print($_POST['place']) ?>"/></td>
+</tr>
+<tr>
+	<td>Telefon</td>
+    <td></td>
+    <td><input type="text" name="phone" id="phone" value="<?php if ($_POST['phone']) print($_POST['phone']) ?>"/></td>
+</tr>
+<tr>
+	<td>Beschreibung*</td>
+    <td></td>
+    <td><textarea name="description" id="description" ROWS=10 COLS=40><?php if ($_POST['description']) print($_POST['description']) ?></textarea></td>
+</tr>
+<tr>
+	<td><input type="submit" name="submit" id="submit" value="Abschicken" /></td>
+    <td></td>
+    <td></td>
+</tr>
+</table>
+<input type="hidden" name="REQUEST_TOKEN" value="<?php echo REQUEST_TOKEN; ?>">
+      </form>
+</form>
+
+<?php }else if($this->send){?>
+    <p class="green">Deine Anzeige für die Tanzpartnervermittlung wurde erfolgreich in die Datenbank aufgenommen.</p>
+    <p class="green">
+    Um deine Anzeige zu aktivieren, wurde dir per E-Mail ein Link zugestellt.
+    </p>
+<?php }else if ($this->activated){ ?>
+<p class="green">Deine Anzeige wurde erfolgreich aktiviert!</p>
+<p class="green">Sie ist nun für 90 Tage aktiv und wird anschließend automatisch gelöscht.</p>
+<?php }?>
+</div>

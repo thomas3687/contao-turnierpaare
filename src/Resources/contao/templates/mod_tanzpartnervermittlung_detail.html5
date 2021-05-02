@@ -1,0 +1,58 @@
+
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+<?php $anzeige = $this->anzeigen[0]; ?>
+<?php echo $this->backlink; ?>
+    <h1>Profil von <?php echo $anzeige['vorname']." ".$anzeige['nachname'];?></h1>
+    
+    <table width="100%">
+    <tr>
+    	<td><strong>Alter</strong></td>
+        <td><?php echo $anzeige['age'];?> Jahre</td>
+    </tr>
+    <tr>
+    	<td><strong>Größe</strong></td>
+        <td><?php echo $anzeige['height'];?> cm</td>
+    </tr>
+    <tr>
+    	<td><strong>Sucht für</strong></td>
+        <td><?php echo $anzeige['classes'];?></td>
+    </tr>
+    <tr>
+    	<td><strong>Ort</strong></td>
+        <td><?php echo $anzeige['place'];?></td>
+    </tr>
+    </table>
+    <p><strong>Beschreibung</strong></p>
+    <div>
+    <?php echo $anzeige['description'];?>
+    </div>
+    
+    <?php
+    echo $this->response;
+    if(!$this->send){ ?>
+        <p><strong>E-Mail schreiben</strong></p>
+        <form id="login-form" method="post" action="<?php echo $this->Environment->request; ?>">
+
+     <table width="600" border="0" cellspacing="0" cellpadding="10">
+     <tr>
+          <td>*Pflichtfeld</td>
+          <td>&nbsp;</td>
+     </tr>
+      <tr>
+          <td><label for="fromemail">*Absender E-Mail-Adresse: </label></td>
+          <td><input type="text" name="fromemail" id="fromemail" value="<?php if ($this->fromemail) print($this->fromemail) ?>"/></td>
+      </tr>
+      <tr>
+          <td><label for="text">*Text: </label></td>
+          <td><textarea name="text" id="description" rows="10" cols="40"><?php if ($this->text) print($this->text);?></textarea></td>
+      </tr>
+      <tr>
+           <td>&nbsp;</td>
+           <td><input type="submit" name="submit" id="submit" value="Abschicken" /></td>
+      </tr>
+	  </table>
+<input type="hidden" name="REQUEST_TOKEN" value="<?php echo REQUEST_TOKEN; ?>">
+      </form>
+      <?php } ?>
+</div>

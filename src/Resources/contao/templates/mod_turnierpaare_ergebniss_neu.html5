@@ -1,0 +1,62 @@
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<?php echo $this->status; ?>
+<form action = "<?php echo $this->replaceInsertTags('{{env::request}}'); ?>" method="post" enctype="multipart/form-data">
+	<table>
+		<tr>
+			<td colspan="2">Paar</td>
+			<td colspan="2"><?php echo $this->turnierpaarName; ?></td>
+		</tr>
+		<tr>
+			<td>Platz*</td>
+			<td><input name="geteilt" type="checkbox" id="geteilt" value="true" <?php echo $this->geteilt; ?>"><label for="geteilt">geteilt</label></td>
+			<td width="90"><?php echo $this->platz; ?></td>
+			<td><div id="versteckt" <?php if(strlen($this->geteilt) == 0){ echo 'style="display:none;"';} ?>><label for="bis_platz">bis</label><?php echo $this->bis_platz; ?></div><?php echo $this->errorPlatzierung; ?></td>
+		</tr>
+		<tr>
+			<td colspan="2">Paare am Start*</td>
+			<td colspan="2" ><?php echo $this->paare; ?></td>
+		</tr>
+		<tr>
+			<td colspan="2">Klasse*</td>
+			<td colspan="2"><?php echo $this->klasse; ?><?php echo $this->errorKlasse; ?></td>
+		</tr>
+		<tr>
+			<td colspan="2">Ort*</td>
+			<td colspan="2"><input type="text" name="ort" id="ort" value="<?php echo $this->ort; ?>"/><?php echo $this->errorOrt; ?></td>
+		</tr>
+		<tr>
+			<td colspan="2">Datum*</td>
+			<td colspan="2">
+
+			<input type="text" name="datepicker" id="datepicker">
+ 
+<script>
+$( function() {
+$( "#datepicker" ).datepicker({
+	firstDay: 1,
+	  dayNamesMin: [ "So", "Mo", "Di", "Mi", "Do", "Fr", "Sa" ],
+  monthNames: [ "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember" ],
+  dateFormat: "dd.mm.yy"
+});
+});
+</script>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">Kommentar</td>
+			<td colspan="2"><input type="text" name="kommentar" id="kommentar" value="<?php echo $this->kommentar; ?>"/></td>
+		</tr>
+		<tr>
+			<td colspan="2">Info für die Redaktion</td>
+			<td colspan="2"><textarea name="infoRedaktion" id="infoRedaktion" cols="50" rows="10"><?php echo $this->infoRedaktion; ?></textarea></td>
+		</tr>
+		<tr>
+	    <td colspan="2">Bild vom Turnier: <br />(max. 3,0 MB)</td>
+	    <td colspan="2"><input type="file" name="datei_feld" id="datei_feld" /><?php echo $this->errorBild; ?></td>
+	  </tr>
+	</table>
+	<input type="hidden" name="pid" id="pid" value="<?php echo $this->turnierpaarID; ?>"/>
+	<input type="hidden" name="REQUEST_TOKEN" value="<?php echo $this->replaceInsertTags('{{request_token}}'); ?>">
+  <button type="submit" name="ergebnis" id="ergebnis" class="submit">Ergebnis melden</button>
+ </form>
+</div>
