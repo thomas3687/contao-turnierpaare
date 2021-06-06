@@ -1,5 +1,4 @@
 {
-    "version":"1.0.0",
     "name": "thomas3687/contao-turnierpaare",
     "description":"Turnierpaarverwaltung für Contao",
     "keywords":["contao", "turnierpaar", "background"],
@@ -11,27 +10,22 @@
         }
     ],
     "require": {
-        "php": "^7.2 || ^8.0",
-        "contao/core-bundle": "^4.9",
-        "symfony/config": "^4.4 || ^5.1",
-        "symfony/dependency-injection": "^4.4 || ^5.1",
-        "symfony/http-kernel": "^4.4 || ^5.1"
+        "php":">=5.5",
+        "contao/core-bundle":"^4.3"
     },
     "conflict": {
+        "contao/core": "*",
         "contao/manager-plugin": "<2.0 || >=3.0"
     },
     "require-dev": {
-        "contao/manager-plugin": "^2.0",
-        "contao/easy-coding-standard": "^2.0",
-        "phpunit/phpunit": "^8.4",
-        "symfony/phpunit-bridge": "^4.4 || ^5.1"
+        "contao/manager-plugin": "^2.0"
     },
     "extra": {
-		"contao-manager-plugin": "ThomasBilich\\Turnierpaarverwaltung\\ContaoManager\\Plugin"
+		    "contao-manager-plugin": "ThomasBilich\\Turnierpaarverwaltung\\ContaoManager\\Plugin"
     },
     "autoload":{
-		"psr-4": {
-			"ThomasBilich\\Turnierpaarverwaltung\\": "src/"
-		}
-	}
+		     "psr-4": {
+                "ThomasBilich\\Turnierpaarverwaltung\\": "src/"
+		              }
+	  }
 }
