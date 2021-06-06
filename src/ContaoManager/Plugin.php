@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ThomasBilich\Turnierpaarverwaltung\ContaoManager;
 
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
@@ -10,7 +12,7 @@ use ThomasBilich\Turnierpaarverwaltung\TurnierpaarverwaltungBundle;
 
 class Plugin implements BundlePluginInterface
 {
-    public function getBundles(ParserInterface $parser): array
+    public function getBundles(ParserInterface $parser)
     {
         return [
             BundleConfig::create(TurnierpaarverwaltungBundle::class)
@@ -18,5 +20,3 @@ class Plugin implements BundlePluginInterface
         ];
     }
 }
-
-?>
