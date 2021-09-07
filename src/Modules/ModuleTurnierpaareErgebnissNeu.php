@@ -27,59 +27,74 @@ class ModuleTurnierpaareErgebnissNeu extends \Module
 
 	 */
 
-   private function mail_att($message,$anhang)
+   private function mail_att($htmlContent,$anhang)
       {
-      $absender = $this->tl_turnierpaare_ergebniss_email_name;
-      $absender_mail = $this->tl_turnierpaare_ergebniss_email_absender;
 
-      $mime_boundary = "-----=" . md5(uniqid(mt_rand(), 1));
+      // Recipient 
+      $to = $this->tl_turnierpaare_ergebniss_email;
+ 
+      // Sender 
+      $from = $this->tl_turnierpaare_ergebniss_email_absender; 
+      $fromName = $this->tl_turnierpaare_ergebniss_email_name;
+ 
+      // Email subject 
+      $subject = $this->tl_turnierpaare_ergebniss_email_subject;
 
-      $header  ="From:".$absender."<".$absender_mail.">\n";
-
-      $header.= "MIME-Version: 1.0\r\n";
-      $header.= "Content-Type: multipart/mixed;\r\n";
-      $header.= " boundary=\"".$mime_boundary."\"\r\n";
-
-      $content = "This is a multi-part message in MIME format.\r\n\r\n";
-      $content.= "--".$mime_boundary."\r\n";
-      $content.= "Content-Type: text/plain charset=\"UTF-8\"\r\n";
-      $content.= "Content-Transfer-Encoding: 8bit\r\n\r\n";
-      $content.= $message."\r\n";
+      
+      // Header for sender info 
+      $headers = "From: $fromName"." <".$from.">"; 
+ 
+      // Boundary  
+      $semi_rand = md5(time());  
+      $mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";  
+      
+      // Headers for attachment  
+      $headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\""; 
+      
+      // Multipart boundary  
+      $message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" . 
+      "Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n";  
 
       //$anhang ist ein Mehrdimensionals Array
       //$anhang enthält mehrere Dateien
+      
       if(is_array($anhang) AND is_array(current($anhang)))
          {
          foreach($anhang AS $dat)
             {
             $data = chunk_split(base64_encode($dat['data']));
-            $content.= "--".$mime_boundary."\r\n";
-            $content.= "Content-Disposition: attachment;\r\n";
-            $content.= "\tfilename=\"".$dat['name']."\";\r\n";
-            $content.= "Content-Length: .".$dat['size'].";\r\n";
-            $content.= "Content-Type: ".$dat['type']."; name=\"".$dat['name']."\"\r\n";
-            $content.= "Content-Transfer-Encoding: base64\r\n\r\n";
-            $content.= $data."\r\n";
+            $message.= "--".$mime_boundary."\r\n";
+            $message.= "Content-Disposition: attachment;\r\n";
+            $message.= "\tfilename=\"".$dat['name']."\";\r\n";
+            $message.= "Content-Length: .".$dat['size'].";\r\n";
+            $message.= "Content-Type: ".$dat['type']."; name=\"".$dat['name']."\"\r\n";
+            $message.= "Content-Transfer-Encoding: base64\r\n\r\n";
+            $message.= $data."\r\n";
             }
-         $content .= "--".$mime_boundary."--";
+         $message .= "--".$mime_boundary."--";
          }
       else if(strlen($anhang['name'])>0) //Nur 1 Datei als Anhang
          {
 
          $data = chunk_split(base64_encode($anhang['data']));
-         $content.= "--".$mime_boundary."\r\n";
-         $content.= "Content-Disposition: attachment;\r\n";
-         $content.= "\tfilename=\"".$anhang['name']."\";\r\n";
-         $content.= "Content-Length: .".$dat['size'].";\r\n";
-         $content.= "Content-Type: ".$anhang['type']."; name=\"".$anhang['name']."\"\r\n";
-         $content.= "Content-Transfer-Encoding: base64\r\n\r\n";
-         $content.= $data."\r\n";
-
+         $message.= "--".$mime_boundary."\r\n";
+         $message.= "Content-Disposition: attachment;\r\n";
+         $message.= "\tfilename=\"".$anhang['name']."\";\r\n";
+         $message.= "Content-Length: .".$dat['size'].";\r\n";
+         $message.= "Content-Type: ".$anhang['type']."; name=\"".$anhang['name']."\"\r\n";
+         $message.= "Content-Transfer-Encoding: base64\r\n\r\n";
+         $message.= $data."\r\n";
+         $message .= "--".$mime_boundary."--";
          }
+         
+      $returnpath = "-f" . $from; 
 
-      if(@mail($this->tl_turnierpaare_ergebniss_email, $this->tl_turnierpaare_ergebniss_email_subject, $content, $header)) return true;
-      else return false;
+      if(mail($to, $subject, $message, $headers, $returnpath)){
+        return true;
+      } else{ 
+        return false;
       }
+    }
 
   private function selectValues($offset, $value, $elemenID){
       $form = '<select name="'.$elemenID.'" id="'.$elemenID.'">';
@@ -456,19 +471,15 @@ class ModuleTurnierpaareErgebnissNeu extends \Module
 
             ### Konfiguration ###
 
-            # Welche(s) Zeichen soll(en) zwischen dem Feldnamen und dem angegebenen Wert stehen?
-            $strDelimiter  = ":\t";
-
-            $strMailtext = "";
-
-            $strMailtext .="Ort: ".$ort."\n";
-            $strMailtext .="Datum: ".\Input::post('datepicker')."\n";
-            $strMailtext .="Paar: ".$paarName."\n";
-            $strMailtext .="Klasse: ".$klasse."\n";
-            $strMailtext .="Platz: ".$platz."\n";
-            $strMailtext .="Paare am Start: ".$paare."\n";
-            $strMailtext .="Kommentar: ".$kommentar."\n\n";
-            $strMailtext .="Info an die Redaktion: \n".$infoRedaktion."\n";
+            $strMailtext = "<p>Neues Turnierergebnis:</p>";
+            $strMailtext .="<p>Ort: ".$ort."</br>";
+            $strMailtext .="Datum: ".\Input::post('datepicker')."</br>";
+            $strMailtext .="Paar: ".$paarName."</br>";
+            $strMailtext .="Klasse: ".$klasse."</br>";
+            $strMailtext .="Platz: ".$platz."</br>";
+            $strMailtext .="Paare am Start: ".$paare."</p>";
+            $strMailtext .="<p>Kommentar: ".$kommentar."</p>";
+            $strMailtext .="<p>Info an die Redaktion:</p>".$infoRedaktion;
 
             $anhang = array();
             if( strlen($_FILES['datei_feld']['name'])>0){
