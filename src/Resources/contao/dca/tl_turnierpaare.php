@@ -318,7 +318,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
 				'tl_class'        => 'w50',
 
 			),
-			'sql'       => "int(10) unsigned NOT NULL"
+			'sql'       => "int(10) unsigned NOT NULL default 0"
 		),
 		'dame_id'  => array
 		(
@@ -336,7 +336,7 @@ Hier werden die eigentlichen felder der tabelle tl_turnierpaare bekannt gemacht.
                 'unique' => false,
 				'tl_class' => 'w50'
 			),
-			'sql'       => "int(10) unsigned NOT NULL"
+			'sql'       => "int(10) unsigned NOT NULL default 0"
 		),
 		'Hvorname'  => array
 		(
