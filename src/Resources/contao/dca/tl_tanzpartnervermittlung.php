@@ -24,7 +24,7 @@ class tl_tanzpartnervermittlung extends Backend
  
  public function getKlassen(){
 	  
-	  $klassen = array('','Breitensport','Gesellschaftskreise', 'Salsa', 'Vorturnier','Tango', 'D-Std','C-Std','B-Std','A-Std','S-Std','D-Lat','C-Lat','B-Lat','A-Lat','S-Lat');
+	  $klassen = array('','Breitensport','Gesellschaftskreise', 'Salsa', 'Discofox', 'Vorturnier','Tango', 'D-Std','C-Std','B-Std','A-Std','S-Std','D-Lat','C-Lat','B-Lat','A-Lat','S-Lat');
 	  
 	  return $klassen;
 	  }
