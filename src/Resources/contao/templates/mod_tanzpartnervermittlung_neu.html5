@@ -52,6 +52,7 @@ if(!$this->send && !$this->activated){
     	<option <?php if ($_POST['class1'] == "Breitensport"){echo "selected";}?> value="Breitensport">Breitensport</option>
         <option <?php if ($_POST['class1'] == "Gesellschaftskreis"){echo "selected";}?> value="Gesellschaftskreis">Gesellschaftskreis</option>
         <option <?php if ($_POST['class1'] == "Vorturnier"){echo "selected";}?> value="Vorturnier">Vorturnier</option>
+        <option <?php if ($_POST['class1'] == "Discofox"){echo "selected";}?> value="Discofox">Discofox</option>
         <option <?php if ($_POST['class1'] == "Tango"){echo "selected";}?> value="Tango">Tango</option>
         <option <?php if ($_POST['class1'] == "Salsa"){echo "selected";}?> value="Salsa">Salsa</option>
         <option <?php if ($_POST['class1'] == "D-Lat"){echo "selected";}?> value="D-Lat">D-Latein</option>
@@ -76,6 +77,7 @@ if(!$this->send && !$this->activated){
         <option <?php if ($_POST['class2'] == "Breitensport"){echo "selected";}?> value="Breitensport">Breitensport</option>
         <option <?php if ($_POST['class2'] == "Gesellschaftskreis"){echo "selected";}?> value="Gesellschaftskreis">Gesellschaftskreis</option>
         <option <?php if ($_POST['class2'] == "Vorturnier"){echo "selected";}?> value="Vorturnier">Vorturnier</option>
+        <option <?php if ($_POST['class1'] == "Discofox"){echo "selected";}?> value="Discofox">Discofox</option>
         <option <?php if ($_POST['class2'] == "Tango"){echo "selected";}?> value="Tango">Tango</option>
         <option <?php if ($_POST['class2'] == "Salsa"){echo "selected";}?> value="Salsa">Salsa</option>
         <option <?php if ($_POST['class2'] == "D-Lat"){echo "selected";}?> value="D-Lat">D-Latein</option>
