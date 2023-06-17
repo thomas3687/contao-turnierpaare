@@ -13,11 +13,20 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['turnierpaare_ergebnisse_list'] = '{
 Palette für das Modul turnierpaare_ergebniss_neu
 */
 $GLOBALS['TL_DCA']['tl_module']['palettes']['turnierpaare_ergebnisse_neu'] = '{title_legend},name,headline,type;{turnierpaare_ergebniss_neu_legend},tl_turnierpaare_ergebniss_email,tl_turnierpaare_ergebniss_email_absender,tl_turnierpaare_ergebniss_email_name,tl_turnierpaare_ergebniss_email_subject;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
-
+/*
+Palette für das Modul tanzpartnervermittlung_list
+*/
 $GLOBALS['TL_DCA']['tl_module']['palettes']['tanzpartnervermittlung_list'] = '{title_legend},name,headline,type;{tanzpartnervermittlung_select_gender_legend},tl_tanzpartnervermittlung_selectGender;{tanzpartnervermittlung_legend},tl_tanzpartnervermittlung_detail;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
-
+/*
+Palette für das Modul tanzpartnervermittlung_neu
+*/
 $GLOBALS['TL_DCA']['tl_module']['palettes']['tanzpartnervermittlung_neu'] = '{title_legend},name,headline,type;{tanzpartnervermittlung_email_legend},tl_tanzpartnervermittlung_email_absender,tl_tanzpartnervermittlung_email_name,tl_tanzpartnervermittlung_email_subject;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
- /**
+/*
+Palette für das Modul tanzpartnervermittlung_detail
+*/
+$GLOBALS['TL_DCA']['tl_module']['palettes']['tanzpartnervermittlung_detail'] = '{title_legend},name,headline,type;{tanzpartnervermittlung_email_legend},tl_tanzpartnervermittlung_email_absender,tl_tanzpartnervermittlung_email_name,tl_tanzpartnervermittlung_email_subject;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+
+/**
  * Add fields to tl_module
  */
 

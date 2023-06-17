@@ -74,8 +74,14 @@ class ModuleTanzpartnervermittlungDetail extends \Module
 	}
 
 	function sendpartnermail($fromemail, $email, $description) {
-		$text="Hallo!\n\n Jemand hat auf deine Tanzpartner-Anzeige geantwortet:\n\n".$description;
-	    $text=$text."\n\n"."Du kannst über die E-Mail Adresse $fromemail auf die Nachricht antworten.";
-	    mail($email, 'Neue Nachricht von der Tanzpartnersuche',$text,"From: $fromemail");
+
+		$absender = $this->tl_tanzpartnervermittlung_email_absender;
+		$absenderName = $this->tl_tanzpartnervermittlung_email_name;
+		$subject = $this->tl_tanzpartnervermittlung_email_subject;
+
+
+		$text="Hallo!\n\n $fromemail hat auf deine Tanzpartner-Anzeige geantwortet:\n\n".$description;
+	    $text=$text."\n\n"."Bitte andworte nicht direkt auf diese E-Mail! Du kannst über die E-Mail Adresse $fromemail auf die Nachricht antworten.";
+	    mail($email, $subject ,$text,"From: $absender");
 	}
 }
