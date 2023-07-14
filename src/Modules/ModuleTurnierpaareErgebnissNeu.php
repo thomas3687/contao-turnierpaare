@@ -173,14 +173,14 @@ class ModuleTurnierpaareErgebnissNeu extends \Module
        case "Hgr II C": $form = $form.'<option value="Hgr II B Lat">Hgr II B Lat</option>'; break;
        case "Hgr II B": $form = $form.'<option value="Hgr II A Lat">Hgr II A Lat</option>'; break;
        case "Hgr II A": $form = $form.'<option value="Hgr II S Lat">Hgr II S Lat</option>'; break;
-       case "Sen I D": $form = $form.'<option value="Sen I C Lat">Sen I C Lat</option>'; break;
-       case "Sen I C": $form = $form.'<option value="Sen I B Lat">Sen I B Lat</option>'; break;
-       case "Sen I B": $form = $form.'<option value="Sen I A Lat">Sen I A Lat</option>'; break;
-       case "Sen I A": $form = $form.'<option value="Sen I S Lat">Sen I S Lat</option>'; break;
-       case "Sen II D": $form = $form.'<option value="Sen II C Lat">Sen II C Lat</option>'; break;
-       case "Sen II C": $form = $form.'<option value="Sen II B Lat">Sen II B Lat</option>'; break;
-       case "Sen II B": $form = $form.'<option value="Sen II A Lat">Sen II A Lat</option>'; break;
-       case "Sen II A": $form = $form.'<option value="Sen II S Lat">Sen II S Lat</option>'; break;
+       case "MAS I D": $form = $form.'<option value="MAS I C Lat">MAS I C Lat</option>'; break;
+       case "MAS I C": $form = $form.'<option value="MAS I B Lat">MAS I B Lat</option>'; break;
+       case "MAS I B": $form = $form.'<option value="MAS I A Lat">MAS I A Lat</option>'; break;
+       case "MAS I A": $form = $form.'<option value="MAS I S Lat">MAS I S Lat</option>'; break;
+       case "MAS II D": $form = $form.'<option value="MAS II C Lat">MAS II C Lat</option>'; break;
+       case "MAS II C": $form = $form.'<option value="MAS II B Lat">MAS II B Lat</option>'; break;
+       case "MAS II B": $form = $form.'<option value="MAS II A Lat">MAS II A Lat</option>'; break;
+       case "MAS II A": $form = $form.'<option value="MAS II S Lat">MAS II S Lat</option>'; break;
 
        case "Fortgeschrittene LWD 1 Combi" : $form = $form.'<option value="Leistungsklasse LWD 1 Combi Lat">Leistungsklasse LWD 1 Combi Lat</option>';
            break;
@@ -213,14 +213,14 @@ class ModuleTurnierpaareErgebnissNeu extends \Module
        case "Hgr II C": $form = $form.'<option value="Hgr II B Lat">Hgr II B Lat</option>'; break;
        case "Hgr II B": $form = $form.'<option value="Hgr II A Lat">Hgr II A Lat</option>'; break;
        case "Hgr II A": $form = $form.'<option value="Hgr II S Lat">Hgr II S Lat</option>'; break;
-       case "Sen I D": $form = $form.'<option value="Sen I C Lat">Sen I C Lat</option>'; break;
-       case "Sen I C": $form = $form.'<option value="Sen I B Lat">Sen I B Lat</option>'; break;
-       case "Sen I B": $form = $form.'<option value="Sen I A Lat">Sen I A Lat</option>'; break;
-       case "Sen I A": $form = $form.'<option value="Sen I S Lat">Sen I S Lat</option>'; break;
-       case "Sen II D": $form = $form.'<option value="Sen II C Lat">Sen II C Lat</option>'; break;
-       case "Sen II C": $form = $form.'<option value="Sen II B Lat">Sen II B Lat</option>'; break;
-       case "Sen II B": $form = $form.'<option value="Sen II A Lat">Sen II A Lat</option>'; break;
-       case "Sen II A": $form = $form.'<option value="Sen II S Lat">Sen II S Lat</option>'; break;
+       case "MAS I D": $form = $form.'<option value="MAS I C Lat">MAS I C Lat</option>'; break;
+       case "MAS I C": $form = $form.'<option value="MAS I B Lat">MAS I B Lat</option>'; break;
+       case "MAS I B": $form = $form.'<option value="MAS I A Lat">MAS I A Lat</option>'; break;
+       case "MAS I A": $form = $form.'<option value="MAS I S Lat">MAS I S Lat</option>'; break;
+       case "MAS II D": $form = $form.'<option value="MAS II C Lat">MAS II C Lat</option>'; break;
+       case "MAS II C": $form = $form.'<option value="MAS II B Lat">MAS II B Lat</option>'; break;
+       case "MAS II B": $form = $form.'<option value="MAS II A Lat">MAS II A Lat</option>'; break;
+       case "MAS II A": $form = $form.'<option value="MAS II S Lat">MAS II S Lat</option>'; break;
 
        }
      switch ($turnierpaar['classSTD']){
@@ -242,22 +242,22 @@ class ModuleTurnierpaareErgebnissNeu extends \Module
        case "Hgr II C": $form = $form.'<option value="Hgr II B Std">Hgr II B Std</option>'; break;
        case "Hgr II B": $form = $form.'<option value="Hgr II A Std">Hgr II A Std</option>'; break;
        case "Hgr II A": $form = $form.'<option value="Hgr II S Std">Hgr II S Std</option>'; break;
-       case "Sen I D": $form = $form.'<option value="Sen I C Std">Sen I C Std</option>'; break;
-       case "Sen I C": $form = $form.'<option value="Sen I B Std">Sen I B Std</option>'; break;
-       case "Sen I B": $form = $form.'<option value="Sen I A Std">Sen I A Std</option>'; break;
-       case "Sen I A": $form = $form.'<option value="Sen I S Std">Sen I S Std</option>'; break;
-       case "Sen II D": $form = $form.'<option value="Sen II C Std">Sen II C Std</option>'; break;
-       case "Sen II C": $form = $form.'<option value="Sen II B Std">Sen II B Std</option>'; break;
-       case "Sen II B": $form = $form.'<option value="Sen II A Std">Sen II A Std</option>'; break;
-       case "Sen II A": $form = $form.'<option value="Sen II S Std">Sen II S Std</option>'; break;
-       case "Sen III D": $form = $form.'<option value="Sen III C Std">Sen III C Std</option>'; break;
-       case "Sen III C": $form = $form.'<option value="Sen III B Std">Sen III B Std</option>'; break;
-       case "Sen III B": $form = $form.'<option value="Sen III A Std">Sen III A Std</option>'; break;
-       case "Sen III A": $form = $form.'<option value="Sen III S Std">Sen III S Std</option>'; break;
-       case "Sen IV D": $form = $form.'<option value="Sen IV C Std">Sen IV C Std</option>'; break;
-       case "Sen IV C": $form = $form.'<option value="Sen IV B Std">Sen IV B Std</option>'; break;
-       case "Sen IV B": $form = $form.'<option value="Sen IV A Std">Sen IV A Std</option>'; break;
-       case "Sen IV A": $form = $form.'<option value="Sen IV S Std">Sen IV S Std</option>'; break;
+       case "MAS I D": $form = $form.'<option value="MAS I C Std">MAS I C Std</option>'; break;
+       case "MAS I C": $form = $form.'<option value="MAS I B Std">MAS I B Std</option>'; break;
+       case "MAS I B": $form = $form.'<option value="MAS I A Std">MAS I A Std</option>'; break;
+       case "MAS I A": $form = $form.'<option value="MAS I S Std">MAS I S Std</option>'; break;
+       case "MAS II D": $form = $form.'<option value="MAS II C Std">MAS II C Std</option>'; break;
+       case "MAS II C": $form = $form.'<option value="MAS II B Std">MAS II B Std</option>'; break;
+       case "MAS II B": $form = $form.'<option value="MAS II A Std">MAS II A Std</option>'; break;
+       case "MAS II A": $form = $form.'<option value="MAS II S Std">MAS II S Std</option>'; break;
+       case "MAS III D": $form = $form.'<option value="MAS III C Std">MAS III C Std</option>'; break;
+       case "MAS III C": $form = $form.'<option value="MAS III B Std">MAS III B Std</option>'; break;
+       case "MAS III B": $form = $form.'<option value="MAS III A Std">MAS III A Std</option>'; break;
+       case "MAS III A": $form = $form.'<option value="MAS III S Std">MAS III S Std</option>'; break;
+       case "MAS IV D": $form = $form.'<option value="MAS IV C Std">MAS IV C Std</option>'; break;
+       case "MAS IV C": $form = $form.'<option value="MAS IV B Std">MAS IV B Std</option>'; break;
+       case "MAS IV B": $form = $form.'<option value="MAS IV A Std">MAS IV A Std</option>'; break;
+       case "MAS IV A": $form = $form.'<option value="MAS IV S Std">MAS IV S Std</option>'; break;
 
        case "Beginners LWD 1 Combi" :
              $form = $form.'<option value="Fortgeschrittene LWD 1 Combi Std">Fortgeschrittene LWD 1 Combi Std</option>';
@@ -314,22 +314,22 @@ class ModuleTurnierpaareErgebnissNeu extends \Module
        case "Hgr II C": $form = $form.'<option value="Hgr II B Std">Hgr II B Std</option>'; break;
        case "Hgr II B": $form = $form.'<option value="Hgr II A Std">Hgr II A Std</option>'; break;
        case "Hgr II A": $form = $form.'<option value="Hgr II S Std">Hgr II S Std</option>'; break;
-       case "Sen I D": $form = $form.'<option value="Sen I C Std">Sen I C Std</option>';  break;
-       case "Sen I C": $form = $form.'<option value="Sen I B Std">Sen I B Std</option>'; break;
-       case "Sen I B": $form = $form.'<option value="Sen I A Std">Sen I A Std</option>'; break;
-       case "Sen I A": $form = $form.'<option value="Sen I S Std">Sen I S Std</option>'; break;
-       case "Sen II D": $form = $form.'<option value="Sen II C Std">Sen II C Std</option>'; break;
-       case "Sen II C": $form = $form.'<option value="Sen II B Std">Sen II B Std</option>'; break;
-       case "Sen II B": $form = $form.'<option value="Sen II A Std">Sen II A Std</option>'; break;
-       case "Sen II A": $form = $form.'<option value="Sen II S Std">Sen II S Std</option>'; break;
-       case "Sen III D": $form = $form.'<option value="Sen III C Std">Sen III C Std</option>'; break;
-       case "Sen III C": $form = $form.'<option value="Sen III B Std">Sen III B Std</option>'; break;
-       case "Sen III B": $form = $form.'<option value="Sen III A Std">Sen III A Std</option>'; break;
-       case "Sen III A": $form = $form.'<option value="Sen III S Std">Sen III S Std</option>'; break;
-       case "Sen IV D": $form = $form.'<option value="Sen IV C Std">Sen IV C Std</option>'; break;
-       case "Sen IV C": $form = $form.'<option value="Sen IV B Std">Sen IV B Std</option>'; break;
-       case "Sen IV B": $form = $form.'<option value="Sen IV A Std">Sen IV A Std</option>'; break;
-       case "Sen IV A": $form = $form.'<option value="Sen IV S Std">Sen IV S Std</option>'; break;
+       case "MAS I D": $form = $form.'<option value="MAS I C Std">MAS I C Std</option>';  break;
+       case "MAS I C": $form = $form.'<option value="MAS I B Std">MAS I B Std</option>'; break;
+       case "MAS I B": $form = $form.'<option value="MAS I A Std">MAS I A Std</option>'; break;
+       case "MAS I A": $form = $form.'<option value="MAS I S Std">MAS I S Std</option>'; break;
+       case "MAS II D": $form = $form.'<option value="MAS II C Std">MAS II C Std</option>'; break;
+       case "MAS II C": $form = $form.'<option value="MAS II B Std">MAS II B Std</option>'; break;
+       case "MAS II B": $form = $form.'<option value="MAS II A Std">MAS II A Std</option>'; break;
+       case "MAS II A": $form = $form.'<option value="MAS II S Std">MAS II S Std</option>'; break;
+       case "MAS III D": $form = $form.'<option value="MAS III C Std">MAS III C Std</option>'; break;
+       case "MAS III C": $form = $form.'<option value="MAS III B Std">MAS III B Std</option>'; break;
+       case "MAS III B": $form = $form.'<option value="MAS III A Std">MAS III A Std</option>'; break;
+       case "MAS III A": $form = $form.'<option value="MAS III S Std">MAS III S Std</option>'; break;
+       case "MAS IV D": $form = $form.'<option value="MAS IV C Std">MAS IV C Std</option>'; break;
+       case "MAS IV C": $form = $form.'<option value="MAS IV B Std">MAS IV B Std</option>'; break;
+       case "MAS IV B": $form = $form.'<option value="MAS IV A Std">MAS IV A Std</option>'; break;
+       case "MAS IV A": $form = $form.'<option value="MAS IV S Std">MAS IV S Std</option>'; break;
        }
 
       $form = $form.'</select>';
