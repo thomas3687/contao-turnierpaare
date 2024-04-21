@@ -29,7 +29,7 @@
 	}
 
     public function herr_save_callback($herr_id, DataContainer $dc){
-			
+
   	  $herr = $this->Database->prepare("SELECT *
                                                   FROM tl_member
                                                   WHERE id=?")
@@ -55,13 +55,14 @@
         {
 
 		$sur_groups = unserialize($objCouples->groups);
-
+    if(is_array($sur_groups)){
         if(in_array(1,$sur_groups)) {
 
             $v = $objCouples->firstname." ".$objCouples->lastname;
             $herren[$i] =$objCouples->id;
-			$i++;
-		}
+			      $i++;
+		        }
+          }
         }
 		return $herren;
 	  }
@@ -77,12 +78,13 @@
 	   while ($objCouples->next())
         {
 		$sur_groups = unserialize($objCouples->groups);
-
+    if(is_array($sur_groups)){
         if(in_array(1,$sur_groups)) {
             $v = $objCouples->firstname." ".$objCouples->lastname;
             $damen[$i] =$objCouples->id;
 			$i++;
-		}
+		  }
+      }
 		}
 		return $damen;
 	  }
